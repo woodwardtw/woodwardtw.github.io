@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Angular/WordPressAPI POC</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<style type="text/css">
+		.artist {
+			height:220px;
+		}
+
+		.artist_title  {
+			transition: opacity 2s ease;
+		    opacity: 0; 
+		    overflow: hidden;
+		    height: 220px;
+		    width: 100%;
+		    margin: 0;
+		    padding: 10px;
+
+		}
+
+		.artist_title:hover, .artist_title:hover a {
+			opacity: 1;
+    		height: auto;
+    		background-color: rgba(0,0,0,.4);
+    		color: #fff;
+    		text-decoration: none;
+		}
+
+		.no-gutter > [class*='col-'] {
+		    padding-right:0;
+		    padding-left:0;
+		}
+
+		input {
+			width: 100%;
+		}
+		
+		</style>  
+	</head>
+	<body ng-app="myApp" ng-controller="SuperCtrl">
+<h2>Weekly Photos</h2>
+		<!-- Wrapper -->
+			<div id="wrapper container-fluid"> 
+					<div class="row">
+						<div class="col-xs-12">
+							<form class="form-inline">
+								<input ng-model='search.title.rendered' type="text" placeholder="Filter by" autofocus>
+				  			</form>				
+				  		</div>		
+					</div>
+
+				<!-- Main -->
+					<div class="row no-gutter">
+						<div ng-repeat="entry in entries | filter: search| orderBy:'entry.date'" class="col-sm-2 col-xs-6 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
+							<a href="{{ entry.link }}">		 
+						         <div class="artist_title"><h2 ng-bind-html="entry.title.rendered">{{ entry.title.rendered }}</h2>
+						         <p>{{ entry.slug}}</p>
+					         </a>	
+					         </div>		      
+					    </div>						
+					</div>				
+			</div>
+
+
+		<!-- Scripts -->
+						
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+			<script type="text/javascript" src="angular-sanitize.js"></script>
+
+		<script>
+			var app = angular.module('myApp', ['ngSanitize']);
+			//
+			app.controller('SuperCtrl', function($scope, $http) {
+			    $http.get("photos.json")
+			    .success(function(response) {$scope.entries = response;});
+			});
+			</script>
+
+
+	</body>
+</html>
