@@ -77,7 +77,7 @@
 			var app = angular.module('myApp', ['ngSanitize']);
 			//
 			app.controller('SuperCtrl', function($scope, $http) {
-			    $http.get("http://bionicteaching.com/wp-json/wp/v2/posts/?filter[category_name]=photography&filter[posts_per_page]=30")
+			    $http.get("photos.json")
 			    .success(function(response) {$scope.entries = response;});
 			});
 			</script>
