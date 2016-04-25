@@ -4,22 +4,38 @@
         <link rel="stylesheet" href="../reveal.js/css/theme/white.css">
         <link href='https://fonts.googleapis.com/css?family=VT323|Press+Start+2P' rel='stylesheet' type='text/css'>
         <style>
-
+        .banner {
+            width: 100%;
+            padding: 7px;
+            color: #fff;
+            background-color: red;
+        }
         </style>
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>
+                <section data-transition-speed="slow">
                     <h1>GitHub</h1>
-                    
+                        <div class="banner">for the humans</div>
                 </section>
-                <section>...to be developed...</section>
+                <section data-transition-speed="slow">
+                    thing
+                </section>
+                <section data-background="" data-transition="fade">
+                    thing two
+                </section>
             </div>
         </div>
         <script src="../reveal.js/js/reveal.js"></script>
         <script>
-            Reveal.initialize();
+            Reveal.initialize(
+                {
+                    width: 1200,
+                    height: 600,
+                }
+                );
+
         </script>
     </body>
 </html>
