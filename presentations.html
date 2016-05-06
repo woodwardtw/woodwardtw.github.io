@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Presentations etc.</title>
+	<meta name="generator" content="Sublime" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-sanitize.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style>
+    .searchrow {
+      background: #5D6268;
+    }    
+    .searchrow h3 {
+      color: #fff;
+    }
+
+    .init, .contact {
+      padding: 4px;
+      border: 1px solid #efefef;
+      margin-top: 12px;
+      height:180px;
+    }
+
+    .contact-name {
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    .initiative {
+        padding: 14px 10px 14px 20px;
+        height: 550px;
+        overflow-y: scroll;
+        border-right: 1px solid #efefef;
+        border-bottom: 1px solid #efefef;
+        border-top: 20px solid #fff;
+    }
+
+    .initiative h2 {
+      background-color: #5D6268;
+      color: #fff;
+      padding: 10px;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .search {
+      float: left;
+      display: inline-block;
+      padding-left: 15px;
+    }
+
+    .btn-group-lg>.btn, .btn-lg {
+      float:right;
+      margin-bottom: 10px;
+    }
+    .details {
+      margin-left: 10px;
+    }
+
+    </style>
+
+</head>
+
+
+<body ng-app="myApp" ng-controller="SuperCtrl">
+<div class="container-fluid searchrow">
+    <h3>Presentations etc.</h3>
+    	<div class="row searchrow">
+    		<div class="col-md-12">
+    			<form class="form-inline">
+                <div class="search">
+    			<input data-ng-model='search.content.$t' name="sort" id="sort" type="text" placeholder="Filter by anything" autofocus>   
+                </div>             
+               <!--<div class="state search col-md-3">
+                State:
+                <select data-ng-model="search.gsx$state.$t">
+                    <option value="">All</option>                   
+                    <option value="Textbook">Textbook</option>
+                </select>  
+                </div>
+                <div class="economic search col-md-3">
+                SES:
+                <select data-ng-model="search.gsx$socioeconomicstatusfreereducedlunch.$t">
+                    <option value="">All</option>
+                    <option value="Classic">Classic</option>                   
+                </select>  
+                </div>-->
+               
+                </div>
+                            
+                </form>
+            </div>	
+         </div>   
+
+    <div class="row">
+     <div ng-repeat="entry in entries | filter: search | orderBy:'gsx$title.$t' : reverse"  class="col-md-4 col-sm-6 initiative">
+          <h2>{{ entry.gsx$title.$t }}</h2>
+           <div class="details"><h4>{{ entry.gsx$activity.$t }} at {{ entry.gsx$conference.$t }} in {{ entry.gsx$year.$t }}</h4> </div>
+            <div class="col-lg-12">           
+                <div class="init">
+                  <h4>Details</h4>                    
+                  <div class="init-studs">{{ entry.gsx$description.$t }} </div>            
+                </div>          
+            </div>                      
+          </div>              
+        </div>
+      </div>
+     </div>  
+    </div> 
+
+<script>
+var app = angular.module('myApp', ['ngSanitize']);
+$gid = "1xG1ClBl5A0kuNca6TYJliKL-5oHSEx6OerAzAJO9f6o"
+//$gid = $_GET['id'];
+$gURL = "https://spreadsheets.google.com/feeds/list/" + $gid + "/1/public/values?alt=json";
+app.controller('SuperCtrl', function($scope, $http) {
+    $http.get($gURL)
+    .success(function(response) {$scope.entries = response.feed.entry;});
+    $scope.Math = window.Math;
+});
+</script>
+
+</body>
+</html>
+
+
+
+	
