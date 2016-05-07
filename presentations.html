@@ -97,7 +97,7 @@
          </div>   
 
     <div class="row">
-     <div ng-repeat="entry in entries | filter: search | orderBy:'gsx$title.$t' : reverse"  class="col-md-4 col-sm-6 initiative">
+     <div ng-repeat="entry in entries | filter: search | orderBy:'gsx$year.$t' : reverse"  class="col-md-4 col-sm-6 initiative">
           <h2>{{ entry.gsx$title.$t }}</h2>
            <div class="details"><h4>{{ entry.gsx$activity.$t }} at {{ entry.gsx$conference.$t }} in {{ entry.gsx$year.$t }}</h4> </div>
             <div class="col-lg-12">           
