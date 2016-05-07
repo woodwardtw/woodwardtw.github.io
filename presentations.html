@@ -16,7 +16,7 @@
     }    
     .searchrow h3 {
       color: #fff;
-      display: inline-block;
+      display: inline-block;      
     }
 
     .init, .contact {
@@ -40,13 +40,6 @@
         border-top: 20px solid #fff;
     }
 
-    .initiative h2 {
-      background-color: #5D6268;
-      color: #fff;
-      padding: 10px;
-      display: inline-block;
-      width: 100%;
-    }
 
     .search {
       float: right;
@@ -61,6 +54,23 @@
       margin-bottom: 10px;
     }
     .details {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 20px;
+      height:45px;
+    }
+
+    .title {
+      height: 120px;
+      background-color: #5D6268;
+      color: #fff;
+      padding: 5px 10px 5px 10px ;
+      display: inline-block;
+      width: 100%;
+      font-size: .8em;
+    }
+
+    .description {
       margin-left: 10px;
       margin-right: 10px;
       padding-bottom: 20px;
@@ -103,12 +113,12 @@
 
     <div class="row">
      <div ng-repeat="entry in entries | filter: search | orderBy:'-gsx$year.$t' : reverse"  class="col-md-4 col-sm-6 initiative">
-          <h2>{{ entry.gsx$title.$t }}</h2>
+          <div class="title"><h2>{{ entry.gsx$title.$t }}</h2></div>
            <div class="details"><h4>{{ entry.gsx$activity.$t }} at {{ entry.gsx$conference.$t }} in {{ entry.gsx$year.$t }}</h4> </div>
             <div class="col-lg-12">           
                 <div class="init">
                   <h4>Details</h4>                    
-                  <div class="details"> {{ entry.gsx$description.$t }} </div>            
+                  <div class="description"> {{ entry.gsx$description.$t }} </div>            
                 </div>          
             </div>                      
           </div>              
