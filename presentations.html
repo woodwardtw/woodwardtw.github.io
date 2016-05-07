@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="js/angular-sanitize.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="vendor/twbs/bootstrap/dist/css/me.css" rel="stylesheet">
 
     <style>
     .searchrow {
@@ -82,6 +83,30 @@
 
 
 <body ng-app="myApp" ng-controller="SuperCtrl">
+  <nav class="navbar navbar-default">
+        <h2 id="title-header">Tom Woodward</h2>
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="#">Tom Woodward</a> -->
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Projects <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Photos</a></li>
+        <li><a href="#">Presentations</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 <div class="container-fluid searchrow">
     	<div class="row searchrow">
     		<div class="col-md-12">
@@ -112,7 +137,7 @@
          </div>   
 
     <div class="row">
-     <div ng-repeat="entry in entries | filter: search | orderBy:'-gsx$year.$t' : reverse"  class="col-md-4 col-sm-6 initiative">
+     <div ng-repeat="entry in entries | filter: search | orderBy:'-gsx$year.$t' : reverse"  class="col-md-4 col-sm-12 initiative">
           <div class="title"><h2>{{ entry.gsx$title.$t }}</h2></div>
            <div class="details"><h4>{{ entry.gsx$activity.$t }} at {{ entry.gsx$conference.$t }} in {{ entry.gsx$year.$t }}</h4> </div>
             <div class="col-lg-12">           
