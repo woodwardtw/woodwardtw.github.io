@@ -94,6 +94,69 @@
 .column { float: left; }
 .size-1of4 { width: 25%; }
 
+.searchrow {
+      background: #5D6268;
+    }    
+    .searchrow h3 {
+      color: #fff;
+      display: inline-block;      
+    }
+
+    .init, .contact {
+      padding: 4px;
+      border: 1px solid #efefef;
+      margin-top: 12px;
+      padding-bottom: 10px;
+    }
+
+    .contact-name {
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    .initiative {
+        padding: 14px 10px 14px 20px;
+        height: 550px;
+        overflow-y: scroll;
+        border-right: 1px solid #efefef;
+        border-bottom: 1px solid #efefef;
+    }
+
+
+    .search {
+      float: right;
+      display: inline-block;
+      padding-left: 15px;
+      margin-bottom: 20px;
+      margin-top: -40px;
+    }
+
+    .btn-group-lg>.btn, .btn-lg {
+      float:right;
+      margin-bottom: 10px;
+    }
+    .details {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 20px;
+      height:45px;
+    }
+
+    .title {
+      height: 120px;
+      background-color: #5D6268;
+      color: #fff;
+      padding: 0px 10px 5px 10px ;
+      display: inline-block;
+      width: 100%;
+      font-size: .8em;
+    }
+
+    .description {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 20px;
+    }
 
 
 @media (min-width: 1200px) {
