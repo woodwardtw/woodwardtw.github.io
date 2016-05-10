@@ -83,7 +83,7 @@
 
 				<!-- Main -->
 					<div class="row no-gutter">
-						<div ng-repeat="entry in entries | filter: search| orderBy:'date'" class="col-sm-2 col-xs-6 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
+						<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-sm-2 col-xs-6 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
 							<a href="{{ entry.link }}">		 
 						         <div class="artist_title"><h2 ng-bind-html="entry.title.rendered">{{ entry.title.rendered }}</h2>
 						         <p>{{ entry.slug}}</p>
