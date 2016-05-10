@@ -103,7 +103,7 @@
 			var app = angular.module('myApp', ['ngSanitize']);
 			//
 			app.controller('SuperCtrl', function($scope, $http) {
-			    $http.get("photos.json")
+			    $http.get("https://dl.dropboxusercontent.com/s/0snpxj1b6wpe267/weeklypics.json?dl=0")
 			    .success(function(response) {$scope.entries = response;});
 			});
 			</script>
