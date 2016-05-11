@@ -84,6 +84,14 @@
 	background-color: #fff;
 }
 
+.presentation-title{
+    padding: 5px;
+    font-family: 'Passion One', cursive;
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 2px 1px #424242;
+    }
+
 
 /* masonry css*/
 #grid[data-columns]::before {

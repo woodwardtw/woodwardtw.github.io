@@ -70,25 +70,26 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<h2>Weekly Photos</h2>
 		<!-- Wrapper -->
 			<div id="wrapper container-fluid"> 
 					<div class="row">
-						<div class="col-xs-12">
-							<form class="form-inline">
-								<input ng-model='search.title.rendered' type="text" placeholder="Filter by" autofocus>
-				  			</form>				
+					    <div class="col-md-10 col-md-offset-1 col-sm-12">
+					    	<h2>Weekly Photos</h2>
+								<form class="form-inline">
+									<input ng-model='search.title.rendered' type="text" placeholder="Filter by" autofocus>
+					  			</form>				
 				  		</div>		
 					</div>
 
 				<!-- Main -->
 					<div class="row no-gutter">
-						<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-lg-2 col-md-3 col-xs-12 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
-							<a href="{{ entry.link }}">		 
+						<div class="col-md-10 col-md-offset-1 col-sm-12">
+							<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-lg-2 col-md-3 col-xs-12 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
+								<a href="{{ entry.link }}">		 
 						         <div class="artist_title"><h2 ng-bind-html="entry.title.rendered">{{ entry.title.rendered }}</h2>
 						         <p>{{ entry.slug}}</p>
-					         </a>	
-					         </div>		      
+					         	</a>	
+					        </div>		      
 					    </div>						
 					</div>				
 			</div>
