@@ -98,7 +98,7 @@ a:hover {
     padding: .2em 0 .25em 0;
 	float: left;
 	margin-top: 10px;
-	padding-left: 20px;
+	padding-left: 60px;
 }
 
 .front-break {
@@ -238,6 +238,11 @@ a:hover {
 	padding: 10px;
 
 }
+
+.big {
+	  font-size: calc(4vw + 4vh + 2vmin);
+}
+
 
 .artist {
 			height:220px;

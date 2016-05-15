@@ -11,7 +11,17 @@
     <script type="text/javascript" src="js/timeliner.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="vendor/twbs/bootstrap/dist/css/me.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Raleway:600,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:600,900' rel='stylesheet' type='text/css'>
+
+   
+    <style type="text/css">
+      #thecanvas {
+    width: 100%;
+    height: 100%;
+    margin-top:0;
+  }
+    </style>
+
 
   </head>
    <body>
@@ -33,7 +43,7 @@
       <ul class="nav navbar-nav">
         <li><a href="photos.html">Photos</a></li>
         <li><a href="presentations.html">Presentations</a></li>
-        <li><a href="timeline.html">Work Timeline</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -43,12 +53,15 @@
   <div id="wrapper container-fluid"> 
 
      <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-sm-12 well well-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        <div class="col-md-7 col-md-offset-1 col-sm-12 well well-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
+        <div class="col-md-4">
+        <canvas id="thecanvas"></canvas>
+        </div>
         
     </div>       
      <div class="row">
@@ -74,10 +87,10 @@
       <div class="col-md-4 col-sm-6 project">
         <h3>By the Numbers</h3>
           <div class="col-xs-4">
-          5
+          <h1 id="big">5</h1>
           </div>
-          <divclass="col-xs-8">
-          higher ed
+          <div class="col-xs-8">
+          <h1 id="big">higher ed</h1>
            </div>
 
       </div>
@@ -96,6 +109,10 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/salvattore.min.js"></script>   
-
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+ <script>
+      jQuery("#big").fitText(5.1, { minFontSize: '50px', maxFontSize: '125px' });
+    </script>
   </body>
 </html>
