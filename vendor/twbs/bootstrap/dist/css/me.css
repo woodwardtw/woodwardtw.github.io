@@ -50,6 +50,13 @@ a:hover {
 	color:#333;
 }
 
+.well {
+    background: #fff;
+    border:none;
+	box-shadow: none;
+    -webkit-box-shadow:none;    
+}
+
 .project {
 		padding-top: 20px;
 	font-size: 1.3em; 

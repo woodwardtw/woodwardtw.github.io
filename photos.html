@@ -44,8 +44,8 @@
 					    </div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1 col-sm-12">
-					    	<p>
+						<div class="col-md-10 col-md-offset-1 col-sm-12 well well-lg"">
+					    	<p style="font-size:1.2em">
 					    	This set of photos links to individual blog posts where I've chosen a few photos to represent that week's efforts. It 
 					    	reflects a choice to put more than select 'perfect' photos out there for the public and it puts me in the habit of reflecting regularly.
 					    	</p>
@@ -58,9 +58,9 @@
 				<!-- Main -->
 					<div class="row no-gutter">
 						<div class="col-md-10 col-md-offset-1 col-xsm-12">
+							<a href="{{ entry.link }}">		 
 							<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-lg-2 col-md-3 col-xs-12 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; background-size: cover ">	
-								<a href="{{ entry.link }}">		 
-						         <div class="artist_title"><h2 ng-bind-html="entry.title.rendered">{{ entry.title.rendered }}</h2>
+						         <div class="artist_title"><h4 ng-bind-html="entry.title.rendered"></h4>
 					         	</a>	
 					        </div>		      
 					    </div>						
