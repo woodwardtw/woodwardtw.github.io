@@ -41,19 +41,29 @@
 	padding: 5px;
 }
 
+a {
+	color: #3498db;
+}
+
+a:hover {
+	text-decoration: none;
+	color:#333;
+}
+
 .project {
-	border: 1px solid rgba(0,90,200,0.3);
-	padding-top: 80px;
-	height: 260px; 
+		padding-top: 20px;
 	font-size: 1.3em; 
 }
 
 .project h3 {
-	color:#fff;
+	color:#3498db;
 	font-size: 2em;
 	padding-left: 10px;
-	background-color: rgba(0,90,200,0.7);
+	border-bottom: 3px solid #3498db;
 	padding: 3px;
+    font: 600 2em/1;
+    text-transform: uppercase;
+
 }
 
 .project a {
@@ -61,11 +71,24 @@
 
 }
 
+.navbar-default .navbar-nav>li>a:hover	 {
+	background-color: #333;
+	color: #fff;
+}
+
 .thumbs {
 	padding-bottom: 20px;
 }
 
 #title-header {
+	font: 900 3.5em/1 'Raleway', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .5em;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    letter-spacing: .1em;
+    padding: .2em 0 .25em 0;
 	float: left;
 	margin-top: 10px;
 	padding-left: 20px;
@@ -90,6 +113,7 @@
     font-size: 3em;
     color: #fff;
     text-shadow: 2px 1px #424242;
+    background-color: #5D6268;
     }
 
 
@@ -166,6 +190,82 @@
       padding-bottom: 20px;
     }
 
+    .square{
+    counter-reset: list-counter;
+    list-style: none;
+    float:left;
+}
+.square li{
+    margin: 1.5em 0;    
+}
+.square li:before{
+    content: counter(list-counter);
+    counter-increment: list-counter;
+    width: 2em;
+    height: 2em;
+    padding: .3em;
+    margin-right: 1em;
+    border: .25em solid #ccc;
+    background: #000;
+    color: #fff;
+    font-family: arial;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    
+}
+
+.timeline-event-content p {
+	display: inline-block;
+	width: 100%;
+	background-color: #fff;
+
+}
+
+
+.timeline-event-content ul {
+	display: inline-block;
+	width: 100%;
+	background-color: #fff;
+	margin-top: -10px;
+	padding: 10px;
+
+}
+
+.artist {
+			height:220px;
+		}
+
+		.artist_title  {
+			transition: opacity 2s ease;
+		    opacity: 0; 
+		    overflow: hidden;
+		    height: 220px;
+		    width: 100%;
+		    margin: 0;
+		    padding: 10px;
+
+		}
+
+		.artist_title:hover, .artist_title:hover a {
+			opacity: 1;
+    		height: auto;
+    		background-color: rgba(0,0,0,.4);
+    		color: #fff;
+    		text-decoration: none;
+		}
+
+		.no-gutter > [class*='col-'] {
+		    padding-right:0;
+		    padding-left:0;
+		}
+
+		input {
+			width: 100%;
+		}
+
+
+
 
 @media (min-width: 1200px) {
 	.container {
@@ -178,6 +278,11 @@
 	.navbar-nav {
     	float: right;
     	margin: 0;
+    	padding-top: 10px;    	
     }
+    #title-header {
+	font: 900 2.5em/1 'Raleway', sans-serif;
+   
+}
 
 }

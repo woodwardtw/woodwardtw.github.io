@@ -1,52 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Weekly Photo Posts</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<title>Weekly Photos</title>
+		<link rel="stylesheet" href="css/timeliner.css" type="text/css" media="screen">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/timeliner.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link href="vendor/twbs/bootstrap/dist/css/me.css" rel="stylesheet">
-		<style type="text/css">
-		.artist {
-			height:220px;
-		}
-
-		.artist_title  {
-			transition: opacity 2s ease;
-		    opacity: 0; 
-		    overflow: hidden;
-		    height: 220px;
-		    width: 100%;
-		    margin: 0;
-		    padding: 10px;
-
-		}
-
-		.artist_title:hover, .artist_title:hover a {
-			opacity: 1;
-    		height: auto;
-    		background-color: rgba(0,0,0,.4);
-    		color: #fff;
-    		text-decoration: none;
-		}
-
-		.no-gutter > [class*='col-'] {
-		    padding-right:0;
-		    padding-left:0;
-		}
-
-		input {
-			width: 100%;
-		}
-		
-		</style>  
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:600,900' rel='stylesheet' type='text/css'>
 	</head>
-	<body ng-app="myApp" ng-controller="SuperCtrl">
-<nav class="navbar navbar-default">
-        <h2 id="title-header">Tom Woodward</h2>
+   <body>
+   <nav class="navbar navbar-default">
+        <h2 id="title-header"><a href="./">Tom Woodward</a></h2>
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -62,20 +29,22 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Projects <span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="photos.html">Photos</a></li>
         <li><a href="presentations.html">Presentations</a></li>
-         <li><a href="timeline.html">Work Timeline</li>
+        <li><a href="timeline.html">Work Timeline</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 		<!-- Wrapper -->
-			<div id="wrapper container-fluid"> 
-					<div class="row">
+			<div id="wrapper container-fluid" ng-app="myApp" ng-controller="SuperCtrl"> 
+					<div class="row searchrow">					
 					    <div class="col-md-10 col-md-offset-1 col-sm-12">
-					    	<h2>Weekly Photos</h2>
+					    	<h3 class="presentation-title">Weekly Photos</h3>
+					    </div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 col-sm-12">
 					    	<p>
 					    	This set of photos links to individual blog posts where I've chosen a few photos to represent that week's efforts. It 
 					    	reflects a choice to put more than select 'perfect' photos out there for the public and it puts me in the habit of reflecting regularly.
@@ -88,8 +57,8 @@
 
 				<!-- Main -->
 					<div class="row no-gutter">
-						<div class="col-md-10 col-md-offset-1 col-sm-12">
-							<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-lg-2 col-md-3 col-xs-12 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; ">	
+						<div class="col-md-10 col-md-offset-1 col-xsm-12">
+							<div ng-repeat="entry in entries | filter: search| orderBy:'-id' : reverse" class="col-lg-2 col-md-3 col-xs-12 artist" style="background-image: url({{ entry.better_featured_image.media_details.sizes.medium.source_url }}); background-repeat: no-repeat; background-position: center; background-size: cover ">	
 								<a href="{{ entry.link }}">		 
 						         <div class="artist_title"><h2 ng-bind-html="entry.title.rendered">{{ entry.title.rendered }}</h2>
 					         	</a>	
