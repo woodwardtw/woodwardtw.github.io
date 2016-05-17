@@ -63,7 +63,7 @@ a:hover {
 }
 
 .project h3 {
-	color:#3498db;
+	color:#333;
 	font-size: 2em;
 	padding-left: 10px;
 	border-bottom: 3px solid #3498db;
@@ -281,6 +281,8 @@ a:hover {
 			background-color: #3498db;
 			padding: 4px;
 			margin-right: 3px;
+			text-align: center;
+
 		}
 		
 
