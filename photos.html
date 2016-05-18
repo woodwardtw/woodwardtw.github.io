@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Weekly Photos</title>
+		<title>Photography</title>
 		<link rel="stylesheet" href="css/timeliner.css" type="text/css" media="screen">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -37,6 +37,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 		<!-- Wrapper -->
+
 			<div id="wrapper container-fluid" ng-app="myApp" ng-controller="SuperCtrl"> 
 					<div class="row searchrow">					
 					    <div class="col-md-10 col-md-offset-1 col-sm-12">
@@ -67,7 +68,6 @@
 					</div>				
 			</div>
 
-
 		<!-- Scripts -->
 						
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -80,6 +80,9 @@
 			    $http.get("./json/weeklyPhotos.json")
 			    .success(function(response) {$scope.entries = response;});
 			});
+			
+			//
+			
 			</script>
 
 
