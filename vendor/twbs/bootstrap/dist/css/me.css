@@ -155,7 +155,7 @@ a:hover {
 
     .initiative {
         padding: 14px 10px 14px 20px;
-        height: 400px;
+        height: 500px;
         overflow-y: scroll;
         border-right: 1px solid #efefef;
         border-bottom: 1px solid #efefef;
@@ -290,7 +290,9 @@ a:hover {
 			font-size: 2em;
 		}
 
-		
+		#readmore {
+			font-weight: 300;
+		}
 
 
 @media (min-width: 1200px) {
