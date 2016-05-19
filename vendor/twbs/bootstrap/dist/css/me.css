@@ -222,7 +222,7 @@ a:hover {
     
 }
 
-.timeline-series.timeline-event.timeline-event-content {
+.timeline-event-content p, .timeline-event-content ul{
 	display: inline-block;
 	width: 100%;
 	background-color: #fff;
