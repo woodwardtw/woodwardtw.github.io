@@ -59,7 +59,9 @@ a:hover {
 
 .project {
 		padding-top: 20px;
-	font-size: 1.3em; 
+    padding-left: 30px;
+    padding-right: 30px;
+	  font-size: 1.3em; 
 }
 
 .project h3 {
@@ -246,6 +248,10 @@ a:hover {
   color: #fff;
 }
 
+.bio-pic {
+  margin: 5px;
+  border: 2px solid #fff;
+}
 
 .artist {
 			height:220px;
