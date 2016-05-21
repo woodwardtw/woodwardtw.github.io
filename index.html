@@ -21,6 +21,7 @@
     margin-top:0;
   }
     </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 
   </head>
@@ -64,26 +65,64 @@
         </div>
         
     </div>       
-     <div class="row">
+    <!-- <div class="row">
         <div class="col-md-9 col-sm-12 col-md-offset-2 project">        
-        <h3>At The Moment</h3>
-    
+        <h3>Current Foci</h3>
+        <div class="col-md-6">
         <h4>WordPress</h4>
-        <p>I've been doing a lot with WordPress for the last few years. That's soup-to-nuts- from supporting students/faculty to custom themes/plugins and servers. It's </p>
+        <p>I've been doing a lot with WordPress in education for the last few years. It's been an interesting journey.</p>
         <ul>
           <li>from 0 to 16,000 sites in two years</li>
           <li>server management</li>
+          <li>faculty and program development</li>
+          <li>course creation and portfolios</li>
           <li>student/faculty support</li>
           <li>custom theme and plugin development</li>
         </ul>
-        <h4>APIs</h4>  
-
-        
-       
+        </div>
+        <h4>APIs</h4>                 
     </div>
-  </div>
-  <div class="row">
-    
+  </div>-->
+  <div class="row col-md-offset-2 project">
+  <h3>At the Moment</h3>
+    <div class="col-md-3">
+                  <a class="twitter-timeline"  href="https://twitter.com/twoodwar" data-widget-id="474560125756129280">Tweets by @twoodwar</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
+    </div>
+    <div class="col-md-4" id="pinboard">
+    <h4>Bookmarks</h4>
+    <script type="text/javascript">      
+
+          
+        $(document).ready(function(){ 
+          console.log("ready"); //just to check in the firebug console.
+          
+        $.ajax({
+          url:'https://feeds.pinboard.in/json/u:twwoodward/',
+          jsonp:"cb",
+          dataType:'jsonp',
+          success: function(data) {
+            console.log(data); //dumps the data to the console to check if the callback is made successfully.
+            $.each(data, function(index, item){
+                $('#pinboard').append('<div class="pinboard"><a href="' + item.u + '">' + item.d
+        + '</a>  -  ' + item.dt.substring(0,10) +' </div>');
+              if (index == 10) return false; //only display 5 items
+              }); //each
+            } //success
+          }); //ajax
+          
+        });//ready
+  </script>
+
+
+    </script>
+      
+    </div>
+    <div class="col-md-4" style="border: 1px solid red">
+   
+      
+    </div>
   </div>
 </div>
 </container>
@@ -94,7 +133,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/salvattore.min.js"></script>   
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
    
   </body>
 </html>

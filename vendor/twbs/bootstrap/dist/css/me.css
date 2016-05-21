@@ -89,6 +89,33 @@ a:hover {
 	padding-bottom: 20px;
 }
 
+.pinboard {
+  font: normal normal 12px/1.2 Helvetica,Roboto,"Segoe UI",Calibri,sans-serif;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #efefef; 
+  line-height: 18px;
+}
+
+.pinboard:hover{
+  background-color: #f1f7fa;
+}
+
+.pinboard a {
+  color: #3498db;
+  padding: 2px;
+
+}
+
+#pinboard h4 {
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #292F33;
+    border-bottom: 2px solid #efefef; 
+    padding-bottom: 9px;
+}
+
 #title-header {
 	font: 900 3.5em/1 'Raleway', sans-serif;
     text-transform: uppercase;
