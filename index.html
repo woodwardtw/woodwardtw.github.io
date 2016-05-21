@@ -83,7 +83,7 @@
         <h4>APIs</h4>                 
     </div>
   </div>-->
-  <div class="row col-md-offset-2 project">
+  <div class="row col-md-offset-2 project moment">
   <h3>At the Moment</h3>
     <div class="col-md-3">
                   <a class="twitter-timeline"  href="https://twitter.com/twoodwar" data-widget-id="474560125756129280">Tweets by @twoodwar</a>
@@ -91,10 +91,10 @@
           
     </div>
     <div class="col-md-4" id="pinboard">
-    <h4>Bookmarks</h4>
-    <script type="text/javascript">      
-
-          
+    <div class="underline">
+      <h4>Bookmarks</h4> <div class="byline">by <a href="https://pinboard.in/u:twwoodward">twwoodward</a></div>
+    </div>
+    <script type="text/javascript">                
         $(document).ready(function(){ 
           console.log("ready"); //just to check in the firebug console.
           
@@ -119,8 +119,30 @@
     </script>
       
     </div>
-    <div class="col-md-4" style="border: 1px solid red">
-   
+    <div class="col-md-4" id="blog">
+   <div class="underline">
+      <h4>Blog Posts</h4> <div class="byline">by <a href="http://bionicteaching.com">twwoodward</a></div>      
+    </div>
+    <script type="text/javascript">                
+        $(document).ready(function(){ 
+          console.log("ready"); //just to check in the firebug console.
+          
+        $.ajax({
+          url:'json/blogs.json',
+          jsonp:"cb",
+          dataType:'json',
+          success: function(data) {
+            console.log(data); //dumps the data to the console to check if the callback is made successfully.
+            $.each(data, function(index, item){
+                $('#blog').append('<div class="pinboard"><a href="' + item.link + '">' + item.title.rendered
+        + '</a>  -  ' + item.date.substring(0,10) +' </div>');
+              if (index == 10) return false; //only display 5 items
+              }); //each
+            } //success
+          }); //ajax
+          
+        });//ready
+  </script>
       
     </div>
   </div>

@@ -1,0 +1,1524 @@
+[
+{
+"id": 5711,
+"date": "2016-05-18T13:45:06",
+"date_gmt": "2016-05-18T18:45:06",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5711"
+},
+"modified": "2016-05-18T13:45:06",
+"modified_gmt": "2016-05-18T18:45:06",
+"slug": "auto-logging-email-via-google-script",
+"type": "post",
+"link": "http://bionicteaching.com/auto-logging-email-via-google-script/",
+"title": {
+"rendered": "Auto-Logging Email via Google Script"
+},
+"content": {
+"rendered": "<p><a title=\"Loggers with saw next to tree\" href=\"https://flickr.com/photos/osucommons/3329045507\"><img src=\"https://farm4.static.flickr.com/3621/3329045507_118b029ff8_z.jpg\" /></a><br /><small><a title=\"Loggers with saw next to tree\" href=\"https://flickr.com/photos/osucommons/3329045507\">flickr photo</a> shared by <a href=\"https://flickr.com/people/osucommons\">OSU Special Collections &#038; Archives : Commons</a> with <a href=\"https://flickr.com/commons/usage/\">no copyright restriction (Flickr Commons)</a> </small></p>\n<p>A while back I was logging emails in a Google sheet via IFTTT. I&#8217;d add a hashtag and forward it on where a spreadsheet would parse out some stuff from the subject line based on the | character. At some point it stopped working and I never quite figured out what the issue was. I thought I wrote about it but, if I did, I can&#8217;t find it. It may be in one of my many draft posts. </p>\n<p>In any case, here&#8217;s a better and more customizable solution. </p>\n<p>It&#8217;ll grab anything I label &#8216;support&#8217; and throw it in a spreadsheet with a few different chunks of information in different columns (to, from, date, subject line, link to the email). </p>\n<p>You&#8217;d open a spreadsheet and name a sheet &#8216;data.&#8217;</p>\n<p>Open up the script editor (Tools>Script Editor) and put the script below in it. </p>\n<p>You might want to change the search parameters. Look at the stuff below the asterisk line. If you want to play around with the right search parameters, just practice in GMail with <a href=\"https://support.google.com/mail/answer/7190?hl=en\">these parameters</a> and then use them in the query variable below. </p>\n<p>You will want to set the trigger to run at 1-2AM each day. </p>\n<p>So now, all I have to do to keep track of all the people I help via email is to label the email. Then I can run reports etc. using that spreadsheet as data.</p>\n<pre class=\"brush: jscript; title: ; notranslate\" title=\"\">\r\nfunction myFunction() {\r\n  \r\n//this is just the stuff that recognizes what spreadsheet you're in\r\n   var ss = SpreadsheetApp.getActiveSpreadsheet();\r\n   var sheets = ss.getSheets();\r\n   var sheet = ss.getSheetByName(&quot;data&quot;); //gets the right sheet\r\n  \r\n//this chunk gets the date info  \r\n var today = new Date();\r\n var dd = today.getDate()-1;\r\n var mm = today.getMonth()+1; //January is 0 DO NOT FORGET THIS\r\n var yyyy = today.getFullYear();\r\n var yesterday = yyyy + '/' + mm + '/' + dd;\r\n\r\n//****************************************************  \r\n//searches your GMail for emails matching two things, written after yesterday and with the label support\r\n  var query = &quot;after:&quot; + yesterday  + &quot; label:support&quot;;\r\n  \r\n  var threads = GmailApp.search(query);\r\n  Logger.log('threads len ' + threads.length);\r\n  \r\n  Logger.log(query);\r\n  \r\n  for (var i = 0; i &lt; threads.length; i++) {\r\n    var messages = threads[i].getMessages();\r\n    Logger.log(messages);    \r\n    for (var m = 0; m &lt; messages.length; m++) {\r\n       var supportStats = [];\r\n     \r\n//here's where you decide what parts of the email you want\r\n      var from = messages[m].getFrom(); //from field\r\n      Logger.log(from);\r\n      var to = messages[m].getTo();//to field\r\n      Logger.log(to);\r\n      var time = messages[m].getDate();//date field\r\n      Logger.log(time);\r\n      var subject = messages[m].getSubject();//subject field\r\n      Logger.log(subject);\r\n      var mId = messages[m].getId();//id field to create the link later\r\n      \r\n      var mYear = time.getFullYear();\r\n      var mMonth = time.getMonth()+1;\r\n      var mDay = time.getDate();\r\n      var messageDate = mYear + '/' + mMonth + '/' + mDay;\r\n      Logger.log('msg date ' + messageDate);\r\n\r\n//decides what found emails match yesterday's date and push them to an array to write to the spreadsheet\r\n      if (messageDate === yesterday) {\r\n      supportStats.push(from);\r\n      supportStats.push(to);\r\n      supportStats.push(time);\r\n      supportStats.push(subject);\r\n      supportStats.push('https://mail.google.com/mail/u/0/#inbox/'+mId); //build the URL to the email\r\n      SpreadsheetApp.getActiveSheet().appendRow(supportStats); //writes to the spreadsheet\r\n      }\r\n    }\r\n\r\n  }          \r\n\r\n}\r\n</pre>\n"
+},
+"excerpt": {
+"rendered": "<p>flickr photo shared by OSU Special Collections &#038; Archives : Commons with no copyright restriction (Flickr Commons) A while back I was logging emails in a Google sheet via IFTTT. I&#8217;d add a hashtag and forward it on where a spreadsheet would parse out some stuff from the subject line based on the | character. At some point it stopped working and I never quite figured out what the issue was. I thought I wrote about it but, if I did, I can&#8217;t find it. It may be in one of my many draft posts. In any case, here&#8217;s a better and more customizable solution. It&#8217;ll grab anything I label &#8216;support&#8217; and throw it in a spreadsheet with a few different chunks of information in different columns (to, from, date, subject line, link to the email). You&#8217;d open a spreadsheet and name a sheet &#8216;data.&#8217; Open up the script editor (Tools>Script Editor) and put the script below in it. You might want to change the search parameters. Look at the stuff below the asterisk line. If you want to play around with the right search parameters, just practice in GMail with these parameters and then use them in the query variable below. You will want to set the trigger to run at 1-2AM each day. So now, all I have [&hellip;]</p>\n"
+},
+"author": 1,
+"featured_media": 5712,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+46,
+65,
+599
+],
+"tags": [
+619,
+572,
+618
+],
+"better_featured_image": {
+"id": 5712,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 640,
+"height": 493,
+"file": "2016/05/3329045507_118b029ff8_z.jpg",
+"sizes": {
+"thumbnail": {
+"file": "3329045507_118b029ff8_z-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/3329045507_118b029ff8_z-150x150.jpg"
+},
+"medium": {
+"file": "3329045507_118b029ff8_z-550x424.jpg",
+"width": 550,
+"height": 424,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/3329045507_118b029ff8_z-550x424.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5711,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/3329045507_118b029ff8_z.jpg"
+},
+"URL_count": [
+"6"
+],
+"word_count": [
+"536"
+],
+"URL_array": [
+"a:6:{i:0;a:2:{i:0;s:49:\"\"https://flickr.com/photos/osucommons/3329045507\"\";i:1;s:39:\"flickr.com/photos/osucommons/3329045507\";}i:1;a:2:{i:0;s:66:\"\"https://farm4.static.flickr.com/3621/3329045507_118b029ff8_z.jpg\"\";i:1;s:56:\"farm4.static.flickr.com/3621/3329045507_118b029ff8_z.jpg\";}i:2;a:2:{i:0;s:49:\"\"https://flickr.com/photos/osucommons/3329045507\"\";i:1;s:39:\"flickr.com/photos/osucommons/3329045507\";}i:3;a:2:{i:0;s:38:\"\"https://flickr.com/people/osucommons\"\";i:1;s:28:\"flickr.com/people/osucommons\";}i:4;a:2:{i:0;s:35:\"\"https://flickr.com/commons/usage/\"\";i:1;s:25:\"flickr.com/commons/usage/\";}i:5;a:2:{i:0;s:51:\"\"https://support.google.com/mail/answer/7190?hl=en\"\";i:1;s:41:\"support.google.com/mail/answer/7190?hl=en\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5711"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5711"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5711/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5712"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5711"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5711"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5711"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5710,
+"date": "2016-05-15T14:00:21",
+"date_gmt": "2016-05-15T19:00:21",
+"guid": {
+"rendered": "http://bionicteaching.com/weekly-web-harvest-for-2016-05-08/"
+},
+"modified": "2016-05-15T14:00:21",
+"modified_gmt": "2016-05-15T19:00:21",
+"slug": "weekly-web-harvest-for-2016-05-08",
+"type": "post",
+"link": "http://bionicteaching.com/weekly-web-harvest-for-2016-05-08/",
+"title": {
+"rendered": "Weekly Web Harvest for 2016-05-08"
+},
+"content": {
+"rendered": "<ul>\n<li><a href=\"http://www.todd-finley.com/2016/04/01/annotation-gets-cool/\">Encouraging the Impulse to Annotate &#8211; Todd&#8217;s Brain</a><br />\n<blockquote>Glossing with social media involves the creation of conversational “layers” which adhere to the original text and produce a richer cultural artifact so that the original text is not obscured, but enhanced. Gloss suggests the multiple veneers that adolescents create to make texts their own. Glossing also denotes the slipperiness of the online world—the Internet being a frictionless distribution system.</p>\n</blockquote>\n</li>\n<li><a href=\"http://hyperallergic.com/293236/a-video-game-that-tailors-its-terrors-to-your-anxiety/\">A Video Game That Tailors Its Terrors to Your Anxiety</a><br />\n<blockquote>“Affectiva’s emotion-sensing software watches the player’s facial expressions for signs of emotional distress. The heart rate sensors, on the other hand, pick up indications of physiological distress.” So, in a way, it’s a different experience, and you could combine both for an even more responsive game.</p>\n</blockquote>\n</li>\n<li><a href=\"http://motherboard.vice.com/read/in-google-v-oracle-the-nerds-are-getting-owned\">In Oracle v. Google, a Nerd Subculture Is on Trial | Motherboard</a><br />\n<blockquote>“The G part stands for GNU?” Alsup asked in disbelief.</p>\n<p>“Yes,” said Schwartz on the stand.</p>\n<p>“That doesn’t make any sense,” said the 71-year-old Clinton appointee.</p></blockquote>\n</li>\n<li><a href=\"http://eloquentjavascript.net/00_intro.html\">Introduction :: Eloquent JavaScript</a><br />\n<blockquote>There will be times when reading this book feels terribly frustrating. If you are new to programming, there will be a lot of new material to digest. Much of this material will then be combined in ways that require you to make additional connections.</p>\n<p>It is up to you to make the necessary effort. When you are struggling to follow the book, do not jump to any conclusions about your own capabilities. You are fine—you just need to keep at it. Take a break, reread some material, and always make sure you read and understand the example programs and exercises. Learning is hard work, but everything you learn is yours and will make subsequent learning easier.</p>\n<p>The computer programmer is a creator of universes for which he [sic] alone is responsible. Universes of virtually unlimited complexity can be created in the form of computer programs.</p>\n<p>Joseph Weizenbaum, Computer Power and Human Reason\n</p></blockquote>\n</li>\n<li><a href=\"https://www.edge.org/response-detail/26756\">Edge.org</a><br />\n<blockquote>In short, what today’s flexible software is threatening is to “free” us from the drudgery of all repetitive tasks rather than those of lowest value, pushing us away from expertise (A) which we know how to impart, toward ingenious Rube Goldberg like opportunities (B) unsupported by any proven educational model. This shift in emphasis from jobs to opportunities is great news for a tiny number of creatives of today, but deeply troubling for a majority who depend on stable and cyclical work to feed families. The opportunities of the future should be many and lavishly rewarded, but it is unlikely that they will ever return in the form of stable jobs.</p>\n</blockquote>\n</li>\n<li><a href=\"http://www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\">BBC &#8211; Future &#8211; Facebook is a growing and unstoppable digital graveyard</a><br />\n<blockquote>The numbers of the dead on Facebook are growing fast. By 2012, just eight years after the platform was launched, 30 million users with Facebook accounts had died. That number has only gone up since. Some estimates claim more than 8,000 users die each day.<br />\nAt some point in time, there will be more dead Facebook users than living ones. Facebook is a growing and unstoppable digital graveyard.</p></blockquote>\n</li>\n</ul>\n"
+},
+"excerpt": {
+"rendered": "<p>Encouraging the Impulse to Annotate &#8211; Todd&#8217;s Brain Glossing with social media involves the creation of conversational “layers” which adhere to the original text and produce a richer cultural artifact so that the original text is not obscured, but enhanced. Gloss suggests the multiple veneers that adolescents create to make texts their own. Glossing also denotes the slipperiness of the online world—the Internet being a frictionless distribution system. A Video Game That Tailors Its Terrors to Your Anxiety “Affectiva’s emotion-sensing software watches the player’s facial expressions for signs of emotional distress. The heart rate sensors, on the other hand, pick up indications of physiological distress.” So, in a way, it’s a different experience, and you could combine both for an even more responsive game. In Oracle v. Google, a Nerd Subculture Is on Trial | Motherboard “The G part stands for GNU?” Alsup asked in disbelief. “Yes,” said Schwartz on the stand. “That doesn’t make any sense,” said the 71-year-old Clinton appointee. Introduction :: Eloquent JavaScript There will be times when reading this book feels terribly frustrating. If you are new to programming, there will be a lot of new material to digest. Much of this material will then be combined in ways that require you to make additional connections. It is up to you to make the necessary effort. When you [&hellip;]</p>\n"
+},
+"author": 1,
+"featured_media": 0,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+601
+],
+"tags": [],
+"better_featured_image": null,
+"URL_count": [
+"6"
+],
+"word_count": [
+"509"
+],
+"URL_array": [
+"a:6:{i:0;a:2:{i:0;s:61:\"\"http://www.todd-finley.com/2016/04/01/annotation-gets-cool/\"\";i:1;s:52:\"www.todd-finley.com/2016/04/01/annotation-gets-cool/\";}i:1;a:2:{i:0;s:88:\"\"http://hyperallergic.com/293236/a-video-game-that-tailors-its-terrors-to-your-anxiety/\"\";i:1;s:79:\"hyperallergic.com/293236/a-video-game-that-tailors-its-terrors-to-your-anxiety/\";}i:2;a:2:{i:0;s:81:\"\"http://motherboard.vice.com/read/in-google-v-oracle-the-nerds-are-getting-owned\"\";i:1;s:72:\"motherboard.vice.com/read/in-google-v-oracle-the-nerds-are-getting-owned\";}i:3;a:2:{i:0;s:45:\"\"http://eloquentjavascript.net/00_intro.html\"\";i:1;s:36:\"eloquentjavascript.net/00_intro.html\";}i:4;a:2:{i:0;s:44:\"\"https://www.edge.org/response-detail/26756\"\";i:1;s:34:\"www.edge.org/response-detail/26756\";}i:5;a:2:{i:0;s:84:\"\"http://www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\"\";i:1;s:75:\"www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5710"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5710"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5710/revisions"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5710"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5710"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5710"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5707,
+"date": "2016-05-11T19:37:52",
+"date_gmt": "2016-05-12T00:37:52",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5707"
+},
+"modified": "2016-05-11T19:37:52",
+"modified_gmt": "2016-05-12T00:37:52",
+"slug": "photography-week-125",
+"type": "post",
+"link": "http://bionicteaching.com/photography-week-125/",
+"title": {
+"rendered": "Photography &#8211; Week 125"
+},
+"content": {
+"rendered": "<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26344855724/in/dateposted-public/\" title=\"IMG_9893.jpg\"><img src=\"https://farm8.staticflickr.com/7343/26344855724_18eaa9b3f4_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9893.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26881947771/in/dateposted-public/\" title=\"IMG_9860.jpg\"><img src=\"https://farm8.staticflickr.com/7111/26881947771_7a37eeaaa3_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9860.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script><br />\nI have to assume this person did this so they would be able to claim the police mis-read their license plate. This had been my plan for many years.</p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26345767613/in/dateposted-public/\" title=\"still pounding erasers\"><img src=\"https://farm8.staticflickr.com/7374/26345767613_374e0805a0_b.jpg\" width=\"683\" height=\"1024\" alt=\"still pounding erasers\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script><br />\nOutside VCU&#8217;s school of education . . .</p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26677035220/in/dateposted-public/\" title=\"IMG_9847.jpg\"><img src=\"https://farm8.staticflickr.com/7602/26677035220_c251d87074_b.jpg\" width=\"683\" height=\"1024\" alt=\"IMG_9847.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26345790463/in/dateposted-public/\" title=\"Prince\"><img src=\"https://farm8.staticflickr.com/7225/26345790463_21ec5fc381_b.jpg\" width=\"1024\" height=\"683\" alt=\"Prince\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n"
+},
+"excerpt": {
+"rendered": "<p>I have to assume this person did this so they would be able to claim the police mis-read their license plate. This had been my plan for many years. Outside VCU&#8217;s school of education . . .</p>\n"
+},
+"author": 1,
+"featured_media": 5708,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+258
+],
+"tags": [],
+"better_featured_image": {
+"id": 5708,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 1024,
+"height": 683,
+"file": "2016/05/26344855724_18eaa9b3f4_b.jpg",
+"sizes": {
+"thumbnail": {
+"file": "26344855724_18eaa9b3f4_b-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26344855724_18eaa9b3f4_b-150x150.jpg"
+},
+"medium": {
+"file": "26344855724_18eaa9b3f4_b-550x367.jpg",
+"width": 550,
+"height": 367,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26344855724_18eaa9b3f4_b-550x367.jpg"
+},
+"medium_large": {
+"file": "26344855724_18eaa9b3f4_b-768x512.jpg",
+"width": 768,
+"height": 512,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26344855724_18eaa9b3f4_b-768x512.jpg"
+},
+"large": {
+"file": "26344855724_18eaa9b3f4_b-1024x683.jpg",
+"width": 1024,
+"height": 683,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26344855724_18eaa9b3f4_b-1024x683.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5707,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26344855724_18eaa9b3f4_b.jpg"
+},
+"URL_count": [
+"10"
+],
+"word_count": [
+"34"
+],
+"URL_array": [
+"a:10:{i:0;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26344855724/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26344855724/in/dateposted-public/\";}i:1;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7343/26344855724_18eaa9b3f4_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7343/26344855724_18eaa9b3f4_b.jpg\";}i:2;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26881947771/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26881947771/in/dateposted-public/\";}i:3;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7111/26881947771_7a37eeaaa3_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7111/26881947771_7a37eeaaa3_b.jpg\";}i:4;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26345767613/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26345767613/in/dateposted-public/\";}i:5;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7374/26345767613_374e0805a0_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7374/26345767613_374e0805a0_b.jpg\";}i:6;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26677035220/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26677035220/in/dateposted-public/\";}i:7;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7602/26677035220_c251d87074_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7602/26677035220_c251d87074_b.jpg\";}i:8;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26345790463/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26345790463/in/dateposted-public/\";}i:9;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7225/26345790463_21ec5fc381_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7225/26345790463_21ec5fc381_b.jpg\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5707"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5707"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5707/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5708"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5707"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5707"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5707"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5701,
+"date": "2016-05-10T21:31:13",
+"date_gmt": "2016-05-11T02:31:13",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5701"
+},
+"modified": "2016-05-10T21:36:04",
+"modified_gmt": "2016-05-11T02:36:04",
+"slug": "grabbing-json",
+"type": "post",
+"link": "http://bionicteaching.com/grabbing-json/",
+"title": {
+"rendered": "Grabbing JSON"
+},
+"content": {
+"rendered": "<p><a title=\"’Tis the genuine [graphic] : For samples send professional card to the Antikamnia Chemical Co. (incorporated) St. Louis, Mo. U.S.A. or 46 Holbron Viaduct London, E.C. c.1900\" href=\"https://flickr.com/photos/library-company-of-philadelphia/6857386818\"><img src=\"https://farm8.static.flickr.com/7202/6857386818_9e9304e1da_z.jpg\" /></a><br /><small><a title=\"’Tis the genuine [graphic] : For samples send professional card to the Antikamnia Chemical Co. (incorporated) St. Louis, Mo. U.S.A. or 46 Holbron Viaduct London, E.C. c.1900\" href=\"https://flickr.com/photos/library-company-of-philadelphia/6857386818\">flickr photo</a> shared by <a href=\"https://flickr.com/people/library-company-of-philadelphia\">Library Company of Philadelphia</a> with <a href=\"https://flickr.com/commons/usage/\">no copyright restriction (Flickr Commons)</a> </small></p>\n<p>What I wanted to do was grab data from the WordPress API and use that to provision chunks of my new portfolio site. The portfolio is hosted on GitHub and GitHub is HTTPS. At the moment my bionicteaching site is not HTTPS.<sup id=\"citation-5701-1\" class=\"footnote\"><a href=\"#footnote-5701-1\">1</a></sup> That causes problems as secure and insecure are not friends. I wanted a quick and easy solution so I could continue until I do the HTTPS switch.</p>\n<p>The following is how I wandered towards a solution. A number of the things worked but don&#8217;t quite work for what I wanted. So they&#8217;re worth remembering/documenting for later and it&#8217;s kind of fun to see a mix of javascript, php, url manipulation, Google API, and the WordPress V2 API all in one little bit of wandering. </p>\n<p>My first thought was to grab the JSON via a Google Script and store it in Google Drive. I can do that but can&#8217;t seem to make it available for use the way I want. I tried messing with various URL parameters but it wasn&#8217;t flowing and I only started there because I thought it would be easy.</p>\n<pre class=\"brush: jscript; title: ; notranslate\" title=\"\">\r\nvar urlOfTheJson = 'http://bionicteaching.com/wp-json/wp/v2/posts/?filter[category_name]=photography&amp;filter[posts_per_page]=30';// URL for the JSON\r\nvar folderId = 'gobbledygookthatyouwantoreplace';//folder ID\r\n\r\nfunction saveInDriveFolder(){\r\n  var folder = DriveApp.getFolderById(folderId);// get the folder\r\n  Logger.log(folder.getFoldersByName);\r\n  var file = UrlFetchApp.fetch(urlOfTheJson); // get the file content as blob \r\n  Logger.log(file);\r\n  folder.createFile('weeklypics.json',file);//create the file directly in the folder\r\n}\r\n</pre>\n<p>I did eventually get the file accessible in DropBox (the only other place I could think of immediately for https file storage) but setting up OAuth etc. to automate putting it there seemed more hassle than it was worth for a short-time solution. For the record, you can make a JSON file accessible for this kind of use. To do so, get your DropBox share URL (the one from the link icon) and change the first portion as shown below.</p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\nhttps://www.dropbox.com/s/0snpxj1b6wpe267/weeklypics.json?dl=0  //doesn't work\r\nhttps://dl.dropboxusercontent.com/s/0snpxj1b6wpe267/weeklypics.json?dl=0  //works\r\n</pre>\n<p>With a tiny bit more thought, I opted to use my local development environment (<a href=\"http://luetkemj.github.io/150825/vvcreate/\">Vagrant</a>) to run a simple PHP file (below) which&#8217;ll save the JSON files to the directory that&#8217;s already synched to GitHub. </p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\n&lt;?php \r\n$urls = [\r\n&quot;http://bionicteaching.com/wp-json/wp/v2/posts/?filter[category_name]=photography&amp;filter[posts_per_page]=30&quot;, \r\n&quot;http://bionicteaching.com/wp-json/wp/v2/posts/?filter[tag]=javascript&amp;filter[posts_per_page]=10&quot;,\r\n&quot;http://bionicteaching.com/wp-json/wp/v2/posts/?filter[tag]=angular&amp;filter[posts_per_page]=10&quot;,\r\n&quot;http://bionicteaching.com/wp-json/wp/v2/posts/?filter[tag]=plugin&amp;filter[posts_per_page]=10&quot;,\r\n&quot;http://bionicteaching.com/wp-json/wp/v2/posts/?filter[category_name]=wordpress&amp;filter[posts_per_page]=10&quot;];\r\n\r\n$fileNames = [\r\n&quot;weeklyPhotos&quot;,\r\n&quot;javascriptPosts&quot;,\r\n&quot;angularPosts&quot;,\r\n&quot;wpPluginsPosts&quot;,\r\n&quot;wordpressPosts&quot;\r\n];\r\n\r\nfor ($x = 0; $x &lt; count($urls); $x++){\r\n\t$url = $urls[$x];\r\n\t$file = file_get_contents($url);\r\n\tfile_put_contents('woodwardtw.github.io/json/'.$fileNames[$x].'.json', $file);\r\n}\r\n\r\n?&gt;\r\n</pre>\n<div id=\"footnotes\">\n<hr />\n<p id=\"footnote-5701-1\"><sup><a href=\"#citation-5701-1\">1</a></sup> It is not even https</p>\n</div>\n"
+},
+"excerpt": {
+"rendered": "<p>flickr photo shared by Library Company of Philadelphia with no copyright restriction (Flickr Commons) What I wanted to do was grab data from the WordPress API and use that to provision chunks of my new portfolio site. The portfolio is hosted on GitHub and GitHub is HTTPS. At the moment my bionicteaching site is not HTTPS.1 That causes problems as secure and insecure are not friends. I wanted a quick and easy solution so I could continue until I do the HTTPS switch. The following is how I wandered towards a solution. A number of the things worked but don&#8217;t quite work for what I wanted. So they&#8217;re worth remembering/documenting for later and it&#8217;s kind of fun to see a mix of javascript, php, url manipulation, Google API, and the WordPress V2 API all in one little bit of wandering. My first thought was to grab the JSON via a Google Script and store it in Google Drive. I can do that but can&#8217;t seem to make it available for use the way I want. I tried messing with various URL parameters but it wasn&#8217;t flowing and I only started there because I thought it would be easy. I did eventually get the file accessible in DropBox (the only other place I could think of immediately for https file storage) [&hellip;]</p>\n"
+},
+"author": 1,
+"featured_media": 5703,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+37,
+6,
+65
+],
+"tags": [
+438,
+595,
+497,
+317
+],
+"better_featured_image": {
+"id": 5703,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 431,
+"height": 640,
+"file": "2016/05/6857386818_9e9304e1da_z.jpg",
+"sizes": {
+"thumbnail": {
+"file": "6857386818_9e9304e1da_z-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/6857386818_9e9304e1da_z-150x150.jpg"
+},
+"medium": {
+"file": "6857386818_9e9304e1da_z-370x550.jpg",
+"width": 370,
+"height": 550,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/6857386818_9e9304e1da_z-370x550.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5701,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/6857386818_9e9304e1da_z.jpg"
+},
+"URL_count": [
+"6"
+],
+"word_count": [
+"553"
+],
+"URL_array": [
+"a:6:{i:0;a:2:{i:0;s:70:\"\"https://flickr.com/photos/library-company-of-philadelphia/6857386818\"\";i:1;s:60:\"flickr.com/photos/library-company-of-philadelphia/6857386818\";}i:1;a:2:{i:0;s:66:\"\"https://farm8.static.flickr.com/7202/6857386818_9e9304e1da_z.jpg\"\";i:1;s:56:\"farm8.static.flickr.com/7202/6857386818_9e9304e1da_z.jpg\";}i:2;a:2:{i:0;s:70:\"\"https://flickr.com/photos/library-company-of-philadelphia/6857386818\"\";i:1;s:60:\"flickr.com/photos/library-company-of-philadelphia/6857386818\";}i:3;a:2:{i:0;s:59:\"\"https://flickr.com/people/library-company-of-philadelphia\"\";i:1;s:49:\"flickr.com/people/library-company-of-philadelphia\";}i:4;a:2:{i:0;s:35:\"\"https://flickr.com/commons/usage/\"\";i:1;s:25:\"flickr.com/commons/usage/\";}i:5;a:2:{i:0;s:44:\"\"http://luetkemj.github.io/150825/vvcreate/\"\";i:1;s:35:\"luetkemj.github.io/150825/vvcreate/\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5701"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5701"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5701/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5703"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5701"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5701"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5701"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5697,
+"date": "2016-05-09T11:40:27",
+"date_gmt": "2016-05-09T16:40:27",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5697"
+},
+"modified": "2016-05-09T11:40:27",
+"modified_gmt": "2016-05-09T16:40:27",
+"slug": "many-paths-in-programming",
+"type": "post",
+"link": "http://bionicteaching.com/many-paths-in-programming/",
+"title": {
+"rendered": "Many Paths in Programming"
+},
+"content": {
+"rendered": "<p><a title=\"Computer Catalog  : Consolidated/Convair Aircraft Factory San Diego Equipment\" href=\"https://flickr.com/photos/sdasmarchives/5019024318\"><img src=\"https://farm5.static.flickr.com/4113/5019024318_42e855285d_z.jpg\" /></a><br /><small><a title=\"Computer Catalog  : Consolidated/Convair Aircraft Factory San Diego Equipment\" href=\"https://flickr.com/photos/sdasmarchives/5019024318\">flickr photo</a> shared by <a href=\"https://flickr.com/people/sdasmarchives\">San Diego Air &#038; Space Museum Archives</a> with <a href=\"https://flickr.com/commons/usage/\">no copyright restriction (Flickr Commons)</a> </small></p>\n<h2>Minor Thoughts on Computational Thinking</h2>\n<p>Probably obvious stuff but I&#8217;m trying to jot things down for my own reference.<br />\nThe first thing one ought to know about computational thinking/programming is that there are many correct paths (although some are better<sup id=\"citation-5697-1\" class=\"footnote\"><a href=\"#footnote-5697-1\">1</a></sup> than others). This is true for just about anything but I think people think technology will be much more . . . binary. Searching for cleaner paths can be kind of fun. </p>\n<p>Computational thinking is powered by vocabulary. Vocabulary, like in language, is closely tied to concepts (<a href=\"http://www.amazon.com/Surfaces-Essences-Analogy-Fuel-Thinking/dp/0465018475\">maybe analogies</a>). Having never heard of the range function, it didn&#8217;t occur to me that it existed . . . let alone that I should use it. To make it work properly I need grammar but just knowing the word exists and means something starts to change things for me. It brings to mind setting up programming challenges much more like <a href=\"http://blog.mrmeyer.com/2011/the-three-acts-of-a-mathematical-story/\">Dan Meyer&#8217;s 3 Act math lessons</a> . . . with the scenario really begging for the addition of a particular concept but letting students struggle with it rather than providing it ahead of time. </p>\n<h2>A Path</h2>\n<p>This is a little bit of real-life progression which demonstrates how one thing can be done in a variety of ways and then how one word can really change it conceptually. </p>\n<p>I got a request from a co-worker at VCU to simplify the following code. The goal is to take a certain user score on a scale from 1-5 (with .2 increments) and associate it with the appropriate column number.</p>\n<p>To be clear, the code works. He just didn&#8217;t like it. Granted, stuff like this leaves lots of room for typos and repeated patterns like this tend to mean there&#8217;s another viable path. </p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\n$ucolumn = 0;\r\n$user_score = round($user_score,1);\r\nif ( $user_score == 1.2 ) { $ucolumn = 2;\r\n}\r\nif ( $user_score == 1.4 ) { $ucolumn = 3;\r\n}\r\nif ( $user_score == 1.6 ) { $ucolumn = 4;\r\n}\r\nif ( $user_score == 1.8 ) { $ucolumn = 5;\r\n}\r\nif ( $user_score == 2 ) { $ucolumn = 6;\r\n}\r\nif ( $user_score == 2.2 ) { $ucolumn = 7;\r\n}\r\nif ( $user_score == 2.4 ) { $ucolumn = 8;\r\n}\r\nif ( $user_score == 2.6 ) { $ucolumn = 9;\r\n}\r\nif ( $user_score == 2.8 ) { $ucolumn = 10;\r\n}\r\nif ( $user_score == 3 ) { $ucolumn = 11;\r\n}\r\nif ( $user_score == 3.2 ) { $ucolumn = 12;\r\n}\r\nif ( $user_score == 3.4 ) { $ucolumn = 13;\r\n}\r\nif ( $user_score == 3.6 ) { $ucolumn = 14;\r\n}\r\nif ( $user_score == 3.8 ) { $ucolumn = 15;\r\n}\r\nif ( $user_score == 4 ) { $ucolumn = 16;\r\n}\r\nif ( $user_score == 4.2 ) { $ucolumn = 17;\r\n}\r\nif ( $user_score == 4.4 ) { $ucolumn = 18;\r\n}\r\nif ( $user_score == 4.6 ) { $ucolumn = 19;\r\n}\r\nif ( $user_score == 4.8 ) { $ucolumn = 20;\r\n}\r\nif ( $user_score == 5 ) { $ucolumn = 21;\r\n}\r\n</pre>\n<p>My first response was to just load the values as an array and then ask the array for a match using <a href=\"http://php.net/manual/en/function.array-search.php\">array_search</a>. It&#8217;s shorter and it felt cleaner to me . . . and it worked.  Negatives are that the array is still hand-loaded and it just looks messy hanging out there taking up room. </p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\n&lt;?php\r\n$user_score = 1.8;\r\n$ucolumn = 0;\r\n$array = array(\r\n'1'=&gt;'1',\r\n'2'=&gt;'1.2',\r\n'3'=&gt;'1.4',\r\n'4'=&gt;'1.6',\r\n'5'=&gt;'1.8',\r\n'6'=&gt;'2',\r\n'7'=&gt;'2.2',\r\n'8'=&gt;'2.4',\r\n'9'=&gt;'2.6',\r\n'10'=&gt;'2.8',\r\n'11'=&gt;'3',\r\n'12'=&gt;'3.2',\r\n'13'=&gt;'3.4',\r\n'14'=&gt;'3.6',\r\n'15'=&gt;'3.8',\r\n'16'=&gt;'4',\r\n'17'=&gt;'4.2',\r\n'18'=&gt;'4.4',\r\n'19'=&gt;'4.6',\r\n'20'=&gt;'4.8',\r\n'21'=&gt;'5',\r\n);\r\n$key = array_search($user_score, $array); //find the match\r\necho $key;\r\n\r\n?&gt;\r\n</pre>\n<p>He responded with a loop structure that he had in mind which was much tidier and moved us away from hand-loading things . . . but it didn&#8217;t quite work.</p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\nfor ($i = 1; $i &lt; 5; $i = $i + 0.2) {\r\necho $i;\r\n    for ($m = 1; $m &lt; 21; $m++) {\r\n        if ( $user_score == $i ) { $ucolumn = $m }\r\n    };\r\n};\r\n</pre>\n<p>With that as inspiration, I still stuck with my array but loaded it using the <a href=\"http://www.w3schools.com/php/php_looping_for.asp\">for loop</a>. It seemed slick.<sup id=\"citation-5697-2\" class=\"footnote\"><a href=\"#footnote-5697-2\">2</a></sup></p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\n\r\n&lt;?php\r\n$user_score = 3.2;\r\n$score = .8;\r\n$array = [];\r\nfor ($ucolumn = 1; $ucolumn &lt;= 20; $ucolumn++) {\r\n\t\t$score = $score+0.2;\r\n\t\t$array[$ucolumn] = round($score,1);//creates the paired key value - round is needed because of floats in php . . . still seem a bit odd to me\r\n    }\r\n$key = array_search($user_score, $array);\r\necho 'key ' . $key;\r\n?&gt;\r\n</pre>\n<p>I think that was Friday. Then, this morning, I was reading <a href=\"http://eloquentjavascript.net/00_intro.html\">Eloquent Javascript</a> and saw the range function mentioned. Turns out <a href=\"http://php.net/manual/en/function.range.php\">PHP has one as well</a>. That led to this code which feels pretty tight. Kind of crazy to take a set of repeated if statements 20-some-odd-lines long and reduce it to two functional lines. You also get the benefit of preventing typos. </p>\n<pre class=\"brush: php; title: ; notranslate\" title=\"\">\r\n$user_score = 1.4;\r\n$array = array_combine(range(1,21),range(1,5,.2));\r\n$key = array_search($user_score, $array);\r\necho $key;\r\n</pre>\n<p>There are probably even tighter/smarter ways to do this but this progression demonstrates improvement. It&#8217;s interesting stuff and helping people also builds out my conceptual vocabulary in ways that will help me later.\n<div id=\"footnotes\">\n<hr />\n<p id=\"footnote-5697-1\"><sup><a href=\"#citation-5697-1\">1</a></sup> Better can be very relative . . . </p>\n<p id=\"footnote-5697-2\"><sup><a href=\"#citation-5697-2\">2</a></sup> Slick is relative. Functional is usually my bar so this is getting fancy.</p>\n</div>\n"
+},
+"excerpt": {
+"rendered": "<p>flickr photo shared by San Diego Air &#038; Space Museum Archives with no copyright restriction (Flickr Commons) Minor Thoughts on Computational Thinking Probably obvious stuff but I&#8217;m trying to jot things down for my own reference. The first thing one ought to know about computational thinking/programming is that there are many correct paths (although some are better1 than others). This is true for just about anything but I think people think technology will be much more . . . binary. Searching for cleaner paths can be kind of fun. Computational thinking is powered by vocabulary. Vocabulary, like in language, is closely tied to concepts (maybe analogies). Having never heard of the range function, it didn&#8217;t occur to me that it existed . . . let alone that I should use it. To make it work properly I need grammar but just knowing the word exists and means something starts to change things for me. It brings to mind setting up programming challenges much more like Dan Meyer&#8217;s 3 Act math lessons . . . with the scenario really begging for the addition of a particular concept but letting students struggle with it rather than providing it ahead of time. A Path This is a little bit of real-life progression which demonstrates how one thing can be done in a variety [&hellip;]</p>\n"
+},
+"author": 1,
+"featured_media": 5699,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+6,
+2
+],
+"tags": [
+617,
+317,
+616
+],
+"better_featured_image": {
+"id": 5699,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 575,
+"height": 561,
+"file": "2016/05/5019024318_42e855285d_z.jpg",
+"sizes": {
+"thumbnail": {
+"file": "5019024318_42e855285d_z-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/5019024318_42e855285d_z-150x150.jpg"
+},
+"medium": {
+"file": "5019024318_42e855285d_z-550x537.jpg",
+"width": 550,
+"height": 537,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/5019024318_42e855285d_z-550x537.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5697,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/5019024318_42e855285d_z.jpg"
+},
+"URL_count": [
+"11"
+],
+"word_count": [
+"810"
+],
+"URL_array": [
+"a:11:{i:0;a:2:{i:0;s:52:\"\"https://flickr.com/photos/sdasmarchives/5019024318\"\";i:1;s:42:\"flickr.com/photos/sdasmarchives/5019024318\";}i:1;a:2:{i:0;s:66:\"\"https://farm5.static.flickr.com/4113/5019024318_42e855285d_z.jpg\"\";i:1;s:56:\"farm5.static.flickr.com/4113/5019024318_42e855285d_z.jpg\";}i:2;a:2:{i:0;s:52:\"\"https://flickr.com/photos/sdasmarchives/5019024318\"\";i:1;s:42:\"flickr.com/photos/sdasmarchives/5019024318\";}i:3;a:2:{i:0;s:41:\"\"https://flickr.com/people/sdasmarchives\"\";i:1;s:31:\"flickr.com/people/sdasmarchives\";}i:4;a:2:{i:0;s:35:\"\"https://flickr.com/commons/usage/\"\";i:1;s:25:\"flickr.com/commons/usage/\";}i:5;a:2:{i:0;s:77:\"\"http://www.amazon.com/Surfaces-Essences-Analogy-Fuel-Thinking/dp/0465018475\"\";i:1;s:68:\"www.amazon.com/Surfaces-Essences-Analogy-Fuel-Thinking/dp/0465018475\";}i:6;a:2:{i:0;s:70:\"\"http://blog.mrmeyer.com/2011/the-three-acts-of-a-mathematical-story/\"\";i:1;s:61:\"blog.mrmeyer.com/2011/the-three-acts-of-a-mathematical-story/\";}i:7;a:2:{i:0;s:52:\"\"http://php.net/manual/en/function.array-search.php\"\";i:1;s:43:\"php.net/manual/en/function.array-search.php\";}i:8;a:2:{i:0;s:50:\"\"http://www.w3schools.com/php/php_looping_for.asp\"\";i:1;s:41:\"www.w3schools.com/php/php_looping_for.asp\";}i:9;a:2:{i:0;s:45:\"\"http://eloquentjavascript.net/00_intro.html\"\";i:1;s:36:\"eloquentjavascript.net/00_intro.html\";}i:10;a:2:{i:0;s:45:\"\"http://php.net/manual/en/function.range.php\"\";i:1;s:36:\"php.net/manual/en/function.range.php\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5697"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5697"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5697/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5699"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5697"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5697"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5697"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5696,
+"date": "2016-05-08T14:00:25",
+"date_gmt": "2016-05-08T19:00:25",
+"guid": {
+"rendered": "http://bionicteaching.com/weekly-web-harvest-for-2016-05-01/"
+},
+"modified": "2016-05-08T14:00:25",
+"modified_gmt": "2016-05-08T19:00:25",
+"slug": "weekly-web-harvest-for-2016-05-01",
+"type": "post",
+"link": "http://bionicteaching.com/weekly-web-harvest-for-2016-05-01/",
+"title": {
+"rendered": "Weekly Web Harvest for 2016-05-01"
+},
+"content": {
+"rendered": "<ul>\n<li><a href=\"http://www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\">BBC &#8211; Future &#8211; Facebook is a growing and unstoppable digital graveyard</a><br />\n<blockquote>The numbers of the dead on Facebook are growing fast. By 2012, just eight years after the platform was launched, 30 million users with Facebook accounts had died. That number has only gone up since. Some estimates claim more than 8,000 users die each day.<br />\nAt some point in time, there will be more dead Facebook users than living ones. Facebook is a growing and unstoppable digital graveyard.</p></blockquote>\n</li>\n<li><a href=\"https://www.autodeskresearch.com/publications/retrofab\">RetroFab: A Design Tool for Retrofitting Physical Interfaces using Actuators, Sensors and 3D Printing | Autodesk Research</a><br />\n<blockquote> RetroFab, an end-to-end design and fabrication environment that allows non-experts to retrofit physical interfaces.</p></blockquote>\n</li>\n<li><a href=\"http://nbremer.github.io/openvis2016/slides/#/title-slide\">SVG beyond mere shapes &#8211; OpenVis talk</a><br />\n<blockquote>really nice work and in reveal js and on github</p></blockquote>\n</li>\n<li><a href=\"http://en.contextishalfthework.net/exhibition-archive/ocean-fleets-ltd-197475/\">Ocean Fleets Ltd. 1974/75 – Context is Half the Work</a><br />\n<blockquote>The conflict adversely affected Levantis’ relationship with the rest of the crew. Reflecting on the whole experience, a representative of Ocean Fleets said that the presence of an artist was indeed well received, but had no lasting effect on the company, noting: “If we had wanted some kind of sociologist aboard, I’d have hired a sociologist.”</p></blockquote>\n</li>\n<li><a href=\"http://littleatoms.com/Artist-Placement-Group\">Making work into an artform | Little AtomsArtist Placemennt Group</a><br />\n<blockquote> In 1966, whilst working as a part-time lecturer at Central Saint Martins School of Art, he and his then student Barry Flanagan borrowed a copy of Clement Greenberg’s seminal text Art and Culture from the university library. Later, during a house party, Latham and Flanagan gave each guest a page torn from the book and asked them to chew it. The chewed paper was then collected, fermented, distilled into alcohol and placed in a vial. Latham returned the vial to the library when the overdue book was finally requested and subsequently lost his job.</p></blockquote>\n</li>\n<li><a href=\"http://www.holovaty.com/writing/well-crafted-websites/\">The history of ‘this website is well-crafted’ hints | Holovaty.com</a><br />\n<blockquote>Around 2015, browser vendors began implementing a feature called service workers. Among other things, this lets your site work offline, thanks to a special cache and the ability to intercept web requests via JavaScript.</p>\n<p>It’s clear to me, studying the history, that service workers are the next big “well-crafted” hint. The signs and similarities are all there. Today, they’re used mostly by fringe sites, in an experimental fashion. It’s inevitable that in a short generation they’ll become common and expected. Progressive Web Apps are clearly the future. The tools will catch up, developers will educate themselves and browser support will increase.</p></blockquote>\n</li>\n<li><a href=\"https://www.washingtonpost.com/news/wonk/wp/2016/05/02/we-all-thought-this-dangerous-trend-affecting-our-kids-had-stopped-but-it-didnt/\">We all thought this dangerous trend affecting our kids had stopped, but it didn’t &#8211; The Washington Post</a><br />\n<blockquote>&#8220;The data they cited is perfectly accurate, but when you look at trends it matters where you start,&#8221; said Asheley Skinner, who is a scientist at the Duke Clinical Research Institute, a research arm of the Duke University School of Medicine. &#8220;This is a case where you can tell two pretty different stories, but only one of them is right.&#8221;</p>\n<p>Skinner is the lead author of a new study published this month in the journal Obesity. The study used data from the same annual survey, but reached a different conclusion. Despite a widespread belief, tied at least in part to the 2014 CDC report, that childhood obesity is trending downward, it argues that the opposite is true: childhood obesity might not be growing quite as fast as it used to, but it&#8217;s still growing. The progress among 2 to 5 year olds, the study argues, is overstated.</p></blockquote>\n</li>\n</ul>\n"
+},
+"excerpt": {
+"rendered": "<p>BBC &#8211; Future &#8211; Facebook is a growing and unstoppable digital graveyard The numbers of the dead on Facebook are growing fast. By 2012, just eight years after the platform was launched, 30 million users with Facebook accounts had died. That number has only gone up since. Some estimates claim more than 8,000 users die each day. At some point in time, there will be more dead Facebook users than living ones. Facebook is a growing and unstoppable digital graveyard. RetroFab: A Design Tool for Retrofitting Physical Interfaces using Actuators, Sensors and 3D Printing | Autodesk Research RetroFab, an end-to-end design and fabrication environment that allows non-experts to retrofit physical interfaces. SVG beyond mere shapes &#8211; OpenVis talk really nice work and in reveal js and on github Ocean Fleets Ltd. 1974/75 – Context is Half the Work The conflict adversely affected Levantis’ relationship with the rest of the crew. Reflecting on the whole experience, a representative of Ocean Fleets said that the presence of an artist was indeed well received, but had no lasting effect on the company, noting: “If we had wanted some kind of sociologist aboard, I’d have hired a sociologist.” Making work into an artform | Little AtomsArtist Placemennt Group In 1966, whilst working as a part-time lecturer at Central Saint Martins School of Art, he [&hellip;]</p>\n"
+},
+"author": 1,
+"featured_media": 0,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+601
+],
+"tags": [],
+"better_featured_image": null,
+"URL_count": [
+"7"
+],
+"word_count": [
+"564"
+],
+"URL_array": [
+"a:7:{i:0;a:2:{i:0;s:84:\"\"http://www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\"\";i:1;s:75:\"www.bbc.com/future/story/20160313-the-unstoppable-rise-of-the-facebook-dead\";}i:1;a:2:{i:0;s:56:\"\"https://www.autodeskresearch.com/publications/retrofab\"\";i:1;s:46:\"www.autodeskresearch.com/publications/retrofab\";}i:2;a:2:{i:0;s:59:\"\"http://nbremer.github.io/openvis2016/slides/#/title-slide\"\";i:1;s:50:\"nbremer.github.io/openvis2016/slides/#/title-slide\";}i:3;a:2:{i:0;s:80:\"\"http://en.contextishalfthework.net/exhibition-archive/ocean-fleets-ltd-197475/\"\";i:1;s:71:\"en.contextishalfthework.net/exhibition-archive/ocean-fleets-ltd-197475/\";}i:4;a:2:{i:0;s:47:\"\"http://littleatoms.com/Artist-Placement-Group\"\";i:1;s:38:\"littleatoms.com/Artist-Placement-Group\";}i:5;a:2:{i:0;s:56:\"\"http://www.holovaty.com/writing/well-crafted-websites/\"\";i:1;s:47:\"www.holovaty.com/writing/well-crafted-websites/\";}i:6;a:2:{i:0;s:137:\"\"https://www.washingtonpost.com/news/wonk/wp/2016/05/02/we-all-thought-this-dangerous-trend-affecting-our-kids-had-stopped-but-it-didnt/\"\";i:1;s:127:\"www.washingtonpost.com/news/wonk/wp/2016/05/02/we-all-thought-this-dangerous-trend-affecting-our-kids-had-stopped-but-it-didnt/\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5696"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5696"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5696/revisions"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5696"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5696"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5696"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5692,
+"date": "2016-05-03T21:17:44",
+"date_gmt": "2016-05-04T02:17:44",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5692"
+},
+"modified": "2016-05-03T21:17:44",
+"modified_gmt": "2016-05-04T02:17:44",
+"slug": "photography-week-124",
+"type": "post",
+"link": "http://bionicteaching.com/photography-week-124/",
+"title": {
+"rendered": "Photography &#8211; Week 124"
+},
+"content": {
+"rendered": "<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26709897302/in/dateposted-public/\" title=\"IMG_9652.jpg\"><img src=\"https://farm8.staticflickr.com/7726/26709897302_bf0b8c0c4d_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9652.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26737941566/in/dateposted-public/\" title=\"IMG_9547.jpg\"><img src=\"https://farm2.staticflickr.com/1614/26737941566_e0a37a9fbf_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9547.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26737929566/in/dateposted-public/\" title=\"IMG_9540.jpg\"><img src=\"https://farm2.staticflickr.com/1681/26737929566_f8b2d8094b_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9540.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26737912926/in/dateposted-public/\" title=\"IMG_9525.jpg\"><img src=\"https://farm2.staticflickr.com/1507/26737912926_be19e6324d_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9525.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26669673032/in/dateposted-public/\" title=\"IMG_9528.jpg\"><img src=\"https://farm2.staticflickr.com/1599/26669673032_058452a6a1_b.jpg\" width=\"683\" height=\"1024\" alt=\"IMG_9528.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26159619783/in/dateposted-public/\" title=\"IMG_9539.jpg\"><img src=\"https://farm2.staticflickr.com/1543/26159619783_e2e3fb0334_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9539.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26669697812/in/dateposted-public/\" title=\"IMG_9544.jpg\"><img src=\"https://farm9.staticflickr.com/8646/26669697812_d49b613eb5_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9544.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26736207261/in/dateposted-public/\" title=\"IMG_9613.jpg\"><img src=\"https://farm8.staticflickr.com/7456/26736207261_bf2c783cc7_b.jpg\" width=\"922\" height=\"1024\" alt=\"IMG_9613.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n"
+},
+"excerpt": {
+"rendered": ""
+},
+"author": 1,
+"featured_media": 5693,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+258
+],
+"tags": [],
+"better_featured_image": {
+"id": 5693,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 1024,
+"height": 683,
+"file": "2016/05/26709897302_bf0b8c0c4d_b.jpg",
+"sizes": {
+"thumbnail": {
+"file": "26709897302_bf0b8c0c4d_b-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26709897302_bf0b8c0c4d_b-150x150.jpg"
+},
+"medium": {
+"file": "26709897302_bf0b8c0c4d_b-550x367.jpg",
+"width": 550,
+"height": 367,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26709897302_bf0b8c0c4d_b-550x367.jpg"
+},
+"medium_large": {
+"file": "26709897302_bf0b8c0c4d_b-768x512.jpg",
+"width": 768,
+"height": 512,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26709897302_bf0b8c0c4d_b-768x512.jpg"
+},
+"large": {
+"file": "26709897302_bf0b8c0c4d_b-1024x683.jpg",
+"width": 1024,
+"height": 683,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26709897302_bf0b8c0c4d_b-1024x683.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5692,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/26709897302_bf0b8c0c4d_b.jpg"
+},
+"URL_count": [
+"16"
+],
+"word_count": [
+"0"
+],
+"URL_array": [
+"a:16:{i:0;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26709897302/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26709897302/in/dateposted-public/\";}i:1;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7726/26709897302_bf0b8c0c4d_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7726/26709897302_bf0b8c0c4d_b.jpg\";}i:2;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26737941566/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26737941566/in/dateposted-public/\";}i:3;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1614/26737941566_e0a37a9fbf_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1614/26737941566_e0a37a9fbf_b.jpg\";}i:4;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26737929566/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26737929566/in/dateposted-public/\";}i:5;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1681/26737929566_f8b2d8094b_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1681/26737929566_f8b2d8094b_b.jpg\";}i:6;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26737912926/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26737912926/in/dateposted-public/\";}i:7;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1507/26737912926_be19e6324d_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1507/26737912926_be19e6324d_b.jpg\";}i:8;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26669673032/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26669673032/in/dateposted-public/\";}i:9;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1599/26669673032_058452a6a1_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1599/26669673032_058452a6a1_b.jpg\";}i:10;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26159619783/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26159619783/in/dateposted-public/\";}i:11;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1543/26159619783_e2e3fb0334_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1543/26159619783_e2e3fb0334_b.jpg\";}i:12;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26669697812/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26669697812/in/dateposted-public/\";}i:13;a:2:{i:0;s:66:\"\"https://farm9.staticflickr.com/8646/26669697812_d49b613eb5_b.jpg\"\";i:1;s:56:\"farm9.staticflickr.com/8646/26669697812_d49b613eb5_b.jpg\";}i:14;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26736207261/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26736207261/in/dateposted-public/\";}i:15;a:2:{i:0;s:66:\"\"https://farm8.staticflickr.com/7456/26736207261_bf2c783cc7_b.jpg\"\";i:1;s:56:\"farm8.staticflickr.com/7456/26736207261_bf2c783cc7_b.jpg\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5692"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5692"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5692/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5693"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5692"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5692"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5692"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5685,
+"date": "2016-05-02T20:58:27",
+"date_gmt": "2016-05-03T01:58:27",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5685"
+},
+"modified": "2016-05-02T20:58:27",
+"modified_gmt": "2016-05-03T01:58:27",
+"slug": "google-scripting-folder-tricks",
+"type": "post",
+"link": "http://bionicteaching.com/google-scripting-folder-tricks/",
+"title": {
+"rendered": "Google Scripting Folder Tricks"
+},
+"content": {
+"rendered": "<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/internetarchivebookimages/14577371037/in/photolist-od9Qxp-ocTvqC-osATwJ-ou927J-odj8p3-ou5D2h-jYZL89-gFowBZ-oeVAZB-odxmhx-ocVsZ3-ouqyxu-ouaBzQ-od88u4-od8pd9-cqr4XA-ouaw1y-oeTAo3-od8CzR-ositxW-eUFxBN-odfgk3-owsokt-ow8Vxn-ocMf85-owtX8F-oukRiE-ocULhw-ow87cH-ouqzd7-ocWwhF-ocU9Ty-oeUosB-ouB7LJ-ocPYru-ocSVe1-odfZrg-ocT7tg-owoUND-oumJQ6-ocVXFb-ocWB5P-od9PtR-ou5tpP-odjTpM-od8BRM-owqAqm-ocXRSF-ouqkRf-ou61UW\" title=\"Image from page 125 of &quot;The typography of advertisements that pay : how to choose and combine type faces, engravings and all the other mechanical elements of modern advertisement construction&quot; (1917)\"><img src=\"https://farm4.staticflickr.com/3897/14577371037_80362ef8e0_b.jpg\" width=\"1024\" height=\"512\" alt=\"Image from page 125 of &quot;The typography of advertisements that pay : how to choose and combine type faces, engravings and all the other mechanical elements of modern advertisement construction&quot; (1917)\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p>I often end up confused about some of the Google Script stuff so I&#8217;m putting this out there in case it helps others. </p>\n<p>The following script does a few things that you might want to do all based around a Google Form submission. It creates a folder, adds editors to the folder, puts the folder in another folder, and then copies a spreadsheet to the folder while adding some data in a few cells.</p>\n<pre class=\"brush: jscript; title: ; notranslate\" title=\"\">\r\nfunction initName() {\r\n  var ss = SpreadsheetApp.getActiveSpreadsheet();\r\n  var sheet = ss.getSheets()[0];\r\n\r\n // This logs the value in the very last cell of the sheet you used when making the script\r\n var lastRow = sheet.getLastRow();\r\n var folder = sheet.getRange(lastRow, 2); //gets the last row and second column\r\n var init = folder.getValue(); //gets the value of the cell in the last row and second column\r\n var email = sheet.getRange(lastRow, 10); //gets the last row and tenth column\r\n var editor = email.getValue(); //gets the value\r\n \r\n//this chunk is a bit messy but array drama around adding multiple editors see http://stackoverflow.com/questions/11287629/addeditors-to-document-from-formsubmit  \r\n var emails = sheet.getRange(lastRow, 11);\r\n var editors = emails.getValue() + ', ' + editor;\r\n var team = editors.replace(/, /g,&quot;|&quot;); //remove unwanted spaces and commas replace by | \r\n var teamArray = team.split('|');\r\n  \r\n   var folder; \r\n   folder = DriveApp.getFoldersByName(init);    \r\n    if (folder.hasNext()) {\r\n    } else {\r\n      folder = DriveApp.createFolder(init);\r\n      folder.addEditors(teamArray); //adds the array of email addresses from above from two columns as editors\r\n    }\r\n    var parentFolder = DriveApp.getFolderById(&quot;thiswastheidbutIremovedit&quot;); //move create folder to parent folder\r\n    parentFolder.addFolder(folder);\r\n    \r\n   var file = DriveApp.getFileById(&quot;thiswasanotheridbutIremovedit&quot;); //copies the ss file with the details over to the parent folder\r\n   file.makeCopy(init+' details', folder)  \r\n   \r\n//gets the ss created above and puts it's URL back in the form for reference\r\n     var detailsFile = DriveApp.getFilesByName(init+' details'); //names \r\n     while (detailsFile.hasNext()) {\r\n     var file = detailsFile.next();\r\n     ssId = file.getId();\r\n     var ssNew = SpreadsheetApp.openById(ssId); //gets the ID of the new SS\r\n     SpreadsheetApp.setActiveSpreadsheet(ssNew);\r\n     ssNew.getRange('B1').setValue(init); //sets cell b1 to the partnership name\r\n     ssNew.getRange('B2').setValue(editor); //sets cell b2 to lead consultant\r\n     \r\n     newSsUrl = ssNew.getUrl(); //get the URL of the details ss\r\n\r\n      \r\n\r\n      sheet.getRange('O'+lastRow).setValue(newSsUrl); //sets cell O (that's the letter O not zero) in the last row to the details ss URL\r\n\r\n\r\n }\r\n  \r\n}\r\n\r\n\r\n\r\n\r\n</pre>\n"
+},
+"excerpt": {
+"rendered": "<p>I often end up confused about some of the Google Script stuff so I&#8217;m putting this out there in case it helps others. The following script does a few things that you might want to do all based around a Google Form submission. It creates a folder, adds editors to the folder, puts the folder in another folder, and then copies a spreadsheet to the folder while adding some data in a few cells.</p>\n"
+},
+"author": 1,
+"featured_media": 5689,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+46,
+65
+],
+"tags": [
+572,
+615,
+418
+],
+"better_featured_image": {
+"id": 5689,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 1024,
+"height": 512,
+"file": "2016/05/14577371037_80362ef8e0_b.jpg",
+"sizes": {
+"thumbnail": {
+"file": "14577371037_80362ef8e0_b-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/14577371037_80362ef8e0_b-150x150.jpg"
+},
+"medium": {
+"file": "14577371037_80362ef8e0_b-550x275.jpg",
+"width": 550,
+"height": 275,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/14577371037_80362ef8e0_b-550x275.jpg"
+},
+"medium_large": {
+"file": "14577371037_80362ef8e0_b-768x384.jpg",
+"width": 768,
+"height": 384,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/14577371037_80362ef8e0_b-768x384.jpg"
+},
+"large": {
+"file": "14577371037_80362ef8e0_b-1024x512.jpg",
+"width": 1024,
+"height": 512,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/14577371037_80362ef8e0_b-1024x512.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5685,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/05/14577371037_80362ef8e0_b.jpg"
+},
+"URL_count": [
+"2"
+],
+"word_count": [
+"385"
+],
+"URL_array": [
+"a:2:{i:0;a:2:{i:0;s:432:\"\"https://www.flickr.com/photos/internetarchivebookimages/14577371037/in/photolist-od9Qxp-ocTvqC-osATwJ-ou927J-odj8p3-ou5D2h-jYZL89-gFowBZ-oeVAZB-odxmhx-ocVsZ3-ouqyxu-ouaBzQ-od88u4-od8pd9-cqr4XA-ouaw1y-oeTAo3-od8CzR-ositxW-eUFxBN-odfgk3-owsokt-ow8Vxn-ocMf85-owtX8F-oukRiE-ocULhw-ow87cH-ouqzd7-ocWwhF-ocU9Ty-oeUosB-ouB7LJ-ocPYru-ocSVe1-odfZrg-ocT7tg-owoUND-oumJQ6-ocVXFb-ocWB5P-od9PtR-ou5tpP-odjTpM-od8BRM-owqAqm-ocXRSF-ouqkRf-ou61UW\"\";i:1;s:422:\"www.flickr.com/photos/internetarchivebookimages/14577371037/in/photolist-od9Qxp-ocTvqC-osATwJ-ou927J-odj8p3-ou5D2h-jYZL89-gFowBZ-oeVAZB-odxmhx-ocVsZ3-ouqyxu-ouaBzQ-od88u4-od8pd9-cqr4XA-ouaw1y-oeTAo3-od8CzR-ositxW-eUFxBN-odfgk3-owsokt-ow8Vxn-ocMf85-owtX8F-oukRiE-ocULhw-ow87cH-ouqzd7-ocWwhF-ocU9Ty-oeUosB-ouB7LJ-ocPYru-ocSVe1-odfZrg-ocT7tg-owoUND-oumJQ6-ocVXFb-ocWB5P-od9PtR-ou5tpP-odjTpM-od8BRM-owqAqm-ocXRSF-ouqkRf-ou61UW\";}i:1;a:2:{i:0;s:66:\"\"https://farm4.staticflickr.com/3897/14577371037_80362ef8e0_b.jpg\"\";i:1;s:56:\"farm4.staticflickr.com/3897/14577371037_80362ef8e0_b.jpg\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5685"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5685"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5685/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5689"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5685"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5685"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5685"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5684,
+"date": "2016-05-01T14:00:06",
+"date_gmt": "2016-05-01T19:00:06",
+"guid": {
+"rendered": "http://bionicteaching.com/weekly-web-harvest-for-2016-04-24/"
+},
+"modified": "2016-05-01T14:00:06",
+"modified_gmt": "2016-05-01T19:00:06",
+"slug": "weekly-web-harvest-for-2016-04-24",
+"type": "post",
+"link": "http://bionicteaching.com/weekly-web-harvest-for-2016-04-24/",
+"title": {
+"rendered": "Weekly Web Harvest for 2016-04-24"
+},
+"content": {
+"rendered": "<ul>\n<li><a href=\"https://medium.com/anthropology-and-algorithms/the-lost-wanderers-866b60a297ee#.6jcll8u4w\">The Lost Wanderers — Anthropology and Algorithms — Medium</a><br />\n<blockquote>Neurath condemns the third wanderer for his “pseudo-rationalist” pretensions: in the interest of appearing rational, he has forced a conclusion out of insufficient evidence “on the basis of inadequate premises of whose deficiencies he is unaware.” Even worse, because he thinks he has decided rationally, he is supremely confident in his decision, even though it is no more justified than any other. The hero of the story for Neurath is wanderer number four, who recognizes the limits of her rationality and supplements it with an auxiliary motive—an arbitrary aid to making decisions among options that, rationally speaking, are all equivalent.</p></blockquote>\n</li>\n</ul>\n"
+},
+"excerpt": {
+"rendered": "<p>The Lost Wanderers — Anthropology and Algorithms — Medium Neurath condemns the third wanderer for his “pseudo-rationalist” pretensions: in the interest of appearing rational, he has forced a conclusion out of insufficient evidence “on the basis of inadequate premises of whose deficiencies he is unaware.” Even worse, because he thinks he has decided rationally, he is supremely confident in his decision, even though it is no more justified than any other. The hero of the story for Neurath is wanderer number four, who recognizes the limits of her rationality and supplements it with an auxiliary motive—an arbitrary aid to making decisions among options that, rationally speaking, are all equivalent.</p>\n"
+},
+"author": 1,
+"featured_media": 0,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+601
+],
+"tags": [],
+"better_featured_image": null,
+"URL_count": [
+"1"
+],
+"word_count": [
+"107"
+],
+"URL_array": [
+"a:1:{i:0;a:2:{i:0;s:91:\"\"https://medium.com/anthropology-and-algorithms/the-lost-wanderers-866b60a297ee#.6jcll8u4w\"\";i:1;s:81:\"medium.com/anthropology-and-algorithms/the-lost-wanderers-866b60a297ee#.6jcll8u4w\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5684"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5684"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5684/revisions"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5684"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5684"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5684"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5681,
+"date": "2016-04-27T12:23:42",
+"date_gmt": "2016-04-27T17:23:42",
+"guid": {
+"rendered": "http://bionicteaching.com/?p=5681"
+},
+"modified": "2016-04-27T12:23:42",
+"modified_gmt": "2016-04-27T17:23:42",
+"slug": "photography-week-123",
+"type": "post",
+"link": "http://bionicteaching.com/photography-week-123/",
+"title": {
+"rendered": "Photography &#8211; Week 123"
+},
+"content": {
+"rendered": "<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26355612270/in/dateposted-public/\" title=\"it takes the sedation of millions to hold us back\"><img src=\"https://farm2.staticflickr.com/1512/26355612270_ccfc8583de_b.jpg\" width=\"1024\" height=\"683\" alt=\"it takes the sedation of millions to hold us back\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26601860456/in/dateposted-public/\" title=\"what is beauty?\"><img src=\"https://farm2.staticflickr.com/1582/26601860456_f36fed8682_b.jpg\" width=\"1024\" height=\"683\" alt=\"what is beauty?\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26601865226/in/dateposted-public/\" title=\"IMG_9312.jpg\"><img src=\"https://farm2.staticflickr.com/1446/26601865226_96be21f586_b.jpg\" width=\"683\" height=\"1024\" alt=\"IMG_9312.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26534961152/in/dateposted-public/\" title=\"dials\"><img src=\"https://farm2.staticflickr.com/1612/26534961152_92cbd24e0a_b.jpg\" width=\"1024\" height=\"683\" alt=\"dials\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26628184105/in/dateposted-public/\" title=\"IMG_9282.jpg\"><img src=\"https://farm2.staticflickr.com/1544/26628184105_271a358e60_b.jpg\" width=\"1024\" height=\"683\" alt=\"IMG_9282.jpg\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n<p><a data-flickr-embed=\"true\"  href=\"https://www.flickr.com/photos/bionicteaching/26628181515/in/dateposted-public/\" title=\"plea please se\"><img src=\"https://farm2.staticflickr.com/1576/26628181515_453e3f0787_b.jpg\" width=\"683\" height=\"1024\" alt=\"plea please se\"></a><script async src=\"//embedr.flickr.com/assets/client-code.js\" charset=\"utf-8\"></script></p>\n"
+},
+"excerpt": {
+"rendered": ""
+},
+"author": 1,
+"featured_media": 5682,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+258
+],
+"tags": [],
+"better_featured_image": {
+"id": 5682,
+"alt_text": "",
+"caption": "",
+"description": "",
+"media_type": "image",
+"media_details": {
+"width": 1024,
+"height": 683,
+"file": "2016/04/26355612270_ccfc8583de_b.jpg",
+"sizes": {
+"thumbnail": {
+"file": "26355612270_ccfc8583de_b-150x150.jpg",
+"width": 150,
+"height": 150,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/04/26355612270_ccfc8583de_b-150x150.jpg"
+},
+"medium": {
+"file": "26355612270_ccfc8583de_b-550x367.jpg",
+"width": 550,
+"height": 367,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/04/26355612270_ccfc8583de_b-550x367.jpg"
+},
+"medium_large": {
+"file": "26355612270_ccfc8583de_b-768x512.jpg",
+"width": 768,
+"height": 512,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/04/26355612270_ccfc8583de_b-768x512.jpg"
+},
+"large": {
+"file": "26355612270_ccfc8583de_b-1024x683.jpg",
+"width": 1024,
+"height": 683,
+"mime-type": "image/jpeg",
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/04/26355612270_ccfc8583de_b-1024x683.jpg"
+}
+},
+"image_meta": {
+"aperture": "0",
+"credit": "",
+"camera": "",
+"caption": "",
+"created_timestamp": "0",
+"copyright": "",
+"focal_length": "0",
+"iso": "0",
+"shutter_speed": "0",
+"title": "",
+"orientation": "0",
+"keywords": []
+}
+},
+"post": 5681,
+"source_url": "http://bionicteaching.com/wp-content/uploads/2016/04/26355612270_ccfc8583de_b.jpg"
+},
+"URL_count": [
+"12"
+],
+"word_count": [
+"0"
+],
+"URL_array": [
+"a:12:{i:0;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26355612270/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26355612270/in/dateposted-public/\";}i:1;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1512/26355612270_ccfc8583de_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1512/26355612270_ccfc8583de_b.jpg\";}i:2;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26601860456/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26601860456/in/dateposted-public/\";}i:3;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1582/26601860456_f36fed8682_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1582/26601860456_f36fed8682_b.jpg\";}i:4;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26601865226/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26601865226/in/dateposted-public/\";}i:5;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1446/26601865226_96be21f586_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1446/26601865226_96be21f586_b.jpg\";}i:6;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26534961152/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26534961152/in/dateposted-public/\";}i:7;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1612/26534961152_92cbd24e0a_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1612/26534961152_92cbd24e0a_b.jpg\";}i:8;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26628184105/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26628184105/in/dateposted-public/\";}i:9;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1544/26628184105_271a358e60_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1544/26628184105_271a358e60_b.jpg\";}i:10;a:2:{i:0;s:80:\"\"https://www.flickr.com/photos/bionicteaching/26628181515/in/dateposted-public/\"\";i:1;s:70:\"www.flickr.com/photos/bionicteaching/26628181515/in/dateposted-public/\";}i:11;a:2:{i:0;s:66:\"\"https://farm2.staticflickr.com/1576/26628181515_453e3f0787_b.jpg\"\";i:1;s:56:\"farm2.staticflickr.com/1576/26628181515_453e3f0787_b.jpg\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5681"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5681"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5681/revisions"
+}
+],
+"wp:featuredmedia": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/media/5682"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5681"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5681"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5681"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+},
+{
+"id": 5679,
+"date": "2016-04-24T14:00:13",
+"date_gmt": "2016-04-24T19:00:13",
+"guid": {
+"rendered": "http://bionicteaching.com/weekly-web-harvest-for-2016-04-17/"
+},
+"modified": "2016-04-24T14:00:13",
+"modified_gmt": "2016-04-24T19:00:13",
+"slug": "weekly-web-harvest-for-2016-04-17",
+"type": "post",
+"link": "http://bionicteaching.com/weekly-web-harvest-for-2016-04-17/",
+"title": {
+"rendered": "Weekly Web Harvest for 2016-04-17"
+},
+"content": {
+"rendered": "<ul>\n<li><a href=\"http://www.downes.ca/cgi-bin/page.cgi?post=65235\">The powerful hacker culture ~ Stephen Downes</a><br />\n<blockquote>If you want progress, Lemire argues, &#8220;you need people who thrive when they solve hard practical problems.&#8221; Hackers thrive by getting something done. &#8220;And once it is done, academics will take the credit.&#8221;   </p>\n<p>&#8211; h/t Downes </p>\n</blockquote>\n</li>\n<li><a href=\"http://higheredstrategy.com/harvard-i-mean-really/\">Harvard. I Mean, Really. | HESA</a><br />\n<blockquote>The largest ever university capital campaign was concluded in 2011 at Stanford University, which raised $6.2 billion.  Naturally, when Harvard launched its campaign in 2013, it set a target of $6.5 billion ($8.1 billion Canadian), of which it raised $2.8 billion during the “quiet” phase.  Last week the Crimson broke the story that the $6.5 billion target had been reached.  The University declined to comment, noting that it only announces updates every October, but if true this means that with two years to go, the campaign is on track to raise something on the order of $10 billion by the time it finishes in 2018.</p>\n</blockquote>\n</li>\n<li><a href=\"http://www.elnuevomuseo.org/#!museum/c23ct\">elnuevomuseo.org | MUSEUM</a><br />\n<blockquote>Nuevo Museo de Arte Contempora?neo (NuMu) is the first and only contemporary art museum in Guatemala, dedicated exclusively to supporting, exhibiting, and documenting contemporary art. Founded in 2012, NuMu is an artist-run space, co- founded and directed by artists Jessica Kaire? and Stefan Benchoam.\n</p></blockquote>\n</li>\n</ul>\n"
+},
+"excerpt": {
+"rendered": "<p>The powerful hacker culture ~ Stephen Downes If you want progress, Lemire argues, &#8220;you need people who thrive when they solve hard practical problems.&#8221; Hackers thrive by getting something done. &#8220;And once it is done, academics will take the credit.&#8221; &#8211; h/t Downes Harvard. I Mean, Really. | HESA The largest ever university capital campaign was concluded in 2011 at Stanford University, which raised $6.2 billion.  Naturally, when Harvard launched its campaign in 2013, it set a target of $6.5 billion ($8.1 billion Canadian), of which it raised $2.8 billion during the “quiet” phase.  Last week the Crimson broke the story that the $6.5 billion target had been reached.  The University declined to comment, noting that it only announces updates every October, but if true this means that with two years to go, the campaign is on track to raise something on the order of $10 billion by the time it finishes in 2018. elnuevomuseo.org | MUSEUM Nuevo Museo de Arte Contempora?neo (NuMu) is the first and only contemporary art museum in Guatemala, dedicated exclusively to supporting, exhibiting, and documenting contemporary art. Founded in 2012, NuMu is an artist-run space, co- founded and directed by artists Jessica Kaire? and Stefan Benchoam.</p>\n"
+},
+"author": 1,
+"featured_media": 0,
+"comment_status": "open",
+"ping_status": "open",
+"sticky": false,
+"format": "standard",
+"categories": [
+601
+],
+"tags": [],
+"better_featured_image": null,
+"URL_count": [
+"3"
+],
+"word_count": [
+"188"
+],
+"URL_array": [
+"a:3:{i:0;a:2:{i:0;s:50:\"\"http://www.downes.ca/cgi-bin/page.cgi?post=65235\"\";i:1;s:41:\"www.downes.ca/cgi-bin/page.cgi?post=65235\";}i:1;a:2:{i:0;s:52:\"\"http://higheredstrategy.com/harvard-i-mean-really/\"\";i:1;s:43:\"higheredstrategy.com/harvard-i-mean-really/\";}i:2;a:2:{i:0;s:44:\"\"http://www.elnuevomuseo.org/#!museum/c23ct\"\";i:1;s:35:\"www.elnuevomuseo.org/#!museum/c23ct\";}}"
+],
+"_links": {
+"self": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5679"
+}
+],
+"collection": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts"
+}
+],
+"about": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/types/post"
+}
+],
+"author": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/users/1"
+}
+],
+"replies": [
+{
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/comments?post=5679"
+}
+],
+"version-history": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/posts/5679/revisions"
+}
+],
+"wp:attachment": [
+{
+"href": "http://bionicteaching.com/wp-json/wp/v2/media?parent=5679"
+}
+],
+"wp:term": [
+{
+"taxonomy": "category",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/categories?post=5679"
+},
+{
+"taxonomy": "post_tag",
+"embeddable": true,
+"href": "http://bionicteaching.com/wp-json/wp/v2/tags?post=5679"
+}
+],
+"curies": [
+{
+"name": "wp",
+"href": "https://api.w.org/{rel}",
+"templated": true
+}
+]
+}
+}
+]
