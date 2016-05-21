@@ -106,7 +106,8 @@ a:hover {
 
 .underline{
     border-bottom: 1px solid #efefef; 
-    margin: -8px;
+    margin-top: -8px;
+    margin-bottom: 7px;
 }
 
 .moment h4 {
