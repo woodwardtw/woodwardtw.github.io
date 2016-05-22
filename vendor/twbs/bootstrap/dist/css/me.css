@@ -70,9 +70,13 @@ a:hover {
 	padding-left: 10px;
 	border-bottom: 3px solid #3498db;
 	padding: 3px;
-    font: 600 2em/1;
-    text-transform: uppercase;
+  font: 600 2em/1;
+  text-transform: uppercase;
+  margin-right: 15%;
+}
 
+.pinboard img {
+  margin-right: 8px;
 }
 
 

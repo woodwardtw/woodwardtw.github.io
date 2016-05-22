@@ -55,7 +55,7 @@
         <div class="col-md-6 col-md-offset-1 col-sm-12 project">
         <p>I am passionate about education and have spent the last fifteen years focused on blending constructivism and technology in K12 and higher ed. My experience includes private and public institutions and non-profits. My interests are varied and include multimedia creation, data visualization, history, poetry, WordPress, and photography.</p>
 
-        <p>This portfolio is an attempt to paint a real picture of what I can do and show actual work backing up the things I say. Some of that work is episodic but I'm also trying to point at evidence of long-term patterns of behavior.</p>        
+        <p>This portfolio is an attempt to paint a real picture of what I can do and show actual work backing up the things I say. Some of that work is episodic but I'm also pointing at evidence of long-term patterns of behavior. I'm trying to provide evidence that can't be faked.</p>        
 
          </div>
         <div class="col-md-3">
@@ -82,10 +82,31 @@
     </div>
   </div>-->
   <div class="row col-md-offset-1 project moment">
-  <h3>At the Moment</h3>
-    <div class="col-md-3">
-                  <a class="twitter-timeline"  href="https://twitter.com/twoodwar" data-widget-id="474560125756129280">Tweets by @twoodwar</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  <h3>Recent Actions</h3>
+    <div class="col-md-3" id="blog">
+   <div class="underline">
+      <h4>Blog Posts</h4> <div class="byline">by <a href="http://bionicteaching.com">twwoodward</a></div>      
+    </div>
+    <script type="text/javascript">                
+        $(document).ready(function(){ 
+          console.log("ready"); //just to check in the firebug console.
+          
+        $.ajax({
+          url:'json/blogs.json',
+          jsonp:"cb",
+          dataType:'json',
+          success: function(data) {
+            console.log(data); //dumps the data to the console to check if the callback is made successfully.
+            $.each(data, function(index, item){
+                if (item.better_featured_image != null){ var photo ='<img src="'+ item.better_featured_image.media_details.sizes.thumbnail.source_url +'" width="40px" height="40px">' } else {var photo = '<div class="square"></div>';};              
+                $('#blog').append('<div class="pinboard"><a href="' + item.link + '">' + photo + item.title.rendered + '</a>  -  ' + item.date.substring(0,10) +' </div>');              
+              if (index == 10) return false; //only display 10 items
+              }); //each
+            } //success
+          }); //ajax
+          
+        });//ready
+  </script>
           
     </div>
     <div class="col-md-4" id="pinboard">
@@ -112,35 +133,11 @@
           
         });//ready
   </script>
-
-
-    </script>
       
     </div>
-    <div class="col-md-3" id="blog">
-   <div class="underline">
-      <h4>Blog Posts</h4> <div class="byline">by <a href="http://bionicteaching.com">twwoodward</a></div>      
-    </div>
-    <script type="text/javascript">                
-        $(document).ready(function(){ 
-          console.log("ready"); //just to check in the firebug console.
-          
-        $.ajax({
-          url:'json/blogs.json',
-          jsonp:"cb",
-          dataType:'json',
-          success: function(data) {
-            console.log(data); //dumps the data to the console to check if the callback is made successfully.
-            $.each(data, function(index, item){
-                $('#blog').append('<div class="pinboard"><a href="' + item.link + '">' + item.title.rendered
-        + '</a>  -  ' + item.date.substring(0,10) +' </div>');
-              if (index == 10) return false; //only display 5 items
-              }); //each
-            } //success
-          }); //ajax
-          
-        });//ready
-  </script>
+    <div class="col-md-3">
+         <a class="twitter-timeline"  href="https://twitter.com/twoodwar" data-widget-id="474560125756129280">Tweets by @twoodwar</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>        
       
     </div>
   </div>
