@@ -58,6 +58,7 @@ a:hover {
 }
 
 .project {
+    margin-top: 100px;
 		padding-top: 20px;
     padding-left: 30px;
     padding-right: 30px;
@@ -179,6 +180,7 @@ a:hover {
 
 .searchrow {
       background: #5D6268;
+      margin-top: 40px;
     }    
     .searchrow h3 {
       color: #fff;
