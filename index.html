@@ -98,7 +98,7 @@
           success: function(data) {
             console.log(data); //dumps the data to the console to check if the callback is made successfully.
             $.each(data, function(index, item){
-                if (item.better_featured_image != null){ var photo ='<img src="'+ item.better_featured_image.media_details.sizes.thumbnail.source_url +'" width="40px" height="40px">' } else {var photo = '<div class="square"></div>';};              
+                if (item.better_featured_image != null){ var photo ='<img src="'+ item.better_featured_image.media_details.sizes.thumbnail.source_url +'" width="40px" height="40px">' } else {var photo ='<img src="imgs/default.png" width="40px" height="40px">';};              
                 $('#blog').append('<div class="pinboard"><a href="' + item.link + '">' + photo + item.title.rendered + '</a>  -  ' + item.date.substring(0,10) +' </div>');              
               if (index == 10) return false; //only display 10 items
               }); //each

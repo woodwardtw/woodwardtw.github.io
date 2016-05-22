@@ -78,7 +78,9 @@ a:hover {
 
 .pinboard img {
   margin-right: 8px;
+  border-radius: 3px;
 }
+
 
 
 .navbar-default .navbar-nav>li>a:hover	 {
@@ -243,29 +245,14 @@ a:hover {
       padding-bottom: 20px;
     }
 
-    .square{
-    counter-reset: list-counter;
-    list-style: none;
-    float:left;
-}
-.square li{
-    margin: 1.5em 0;    
-}
-.square li:before{
-    content: counter(list-counter);
-    counter-increment: list-counter;
-    width: 2em;
-    height: 2em;
-    padding: .3em;
-    margin-right: 1em;
-    border: .25em solid #ccc;
-    background: #000;
-    color: #fff;
-    font-family: arial;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-    
+   .square {
+  border-radius: 3px;
+  background-image: url('..imgs/default.png');
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin:0px;
+
 }
 
 .timeline-event-content p, .timeline-event-content ul{
