@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Tom Woodward</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="vendor/twbs/bootstrap/dist/css/me.css" rel="stylesheet">
@@ -53,12 +54,12 @@
 
      <div class="row">
         <div class="col-md-6 col-md-offset-1 col-sm-12 project">
-        <p>I am passionate about education and have spent the last fifteen years focused on blending constructivism and technology in K12 and higher ed. My experience includes private and public institutions and non-profits. My interests are varied and include multimedia creation, data visualization, history, APIs, poetry, WordPress, and photography.</p>
+        <p>I am passionate about education and have spent the last fifteen years focused on blending <a href="#" data-toggle="tooltip" data-placement="top" title="Montessori and Papert being major influences">constructivism</a> and technology in K12 and higher ed. My experience includes private and public institutions and non-profits. My interests are varied and include multimedia creation, data visualization, history, APIs, poetry, WordPress, and photography.</p>
 
         <p>This portfolio is an attempt to paint a real picture of what I can do and show actual work backing up the things I say. Some of that work is episodic, and some is long-term, but it's all evidence of patterns of behavior that reflect my core beliefs about education and learning.</p>    
 
         <p>
-        This site was built not just to represent me and my work but also to explore how I could use various APIs, Angular, and JavaScript to create an interactive experience where the content is generated through other tools and platforms. 
+        This site was built not just to represent me and my work but also to explore how I could use various <a href="#" data-toggle="tooltip" data-placement="top" title="Pinboard, Flickr, WordPress JSON v 2, Google Docs">APIs</a>, <a href="#" data-toggle="tooltip" data-placement="top" title="Something I'm working on getting better at.">Angular</a>, and JavaScript to create an interactive experience where the content is generated through other tools and platforms. 
         </p>
 
          </div>
@@ -153,6 +154,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/salvattore.min.js"></script>   
+    <script type="text/javascript">
+      $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+    </script>
    
   </body>
 </html>
