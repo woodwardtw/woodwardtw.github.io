@@ -341,14 +341,14 @@ a:hover {
 
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
 	.navbar-nav {
     	float: right;
     	margin: 0;
     	padding-top: 10px;    	
     }
     #title-header {
-	font: 900 2.5em/1 'Raleway', sans-serif;
+	font: 900 2em 'Raleway', sans-serif;
    
 }
 
