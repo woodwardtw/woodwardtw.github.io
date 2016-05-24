@@ -146,7 +146,6 @@ a:hover {
     display: inline-block;
     position: relative;
     letter-spacing: .1em;
-    padding: .2em 0 .25em 0;
 	float: left;
 	margin-top: 10px;
 	padding-left: 60px;
@@ -186,7 +185,6 @@ a:hover {
 
 .searchrow {
       background: #5D6268;
-      margin-top: 40px;
     }    
     .searchrow h3 {
       color: #fff;
@@ -324,7 +322,6 @@ a:hover {
 
 		}
 		
-
 		#details {
 			font-size: 2em;
 		}
@@ -333,6 +330,42 @@ a:hover {
 			font-weight: 300;
 		}
 
+//PANEL
+
+.panel-group {
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+
+.panel-default {
+  border: #424242;
+}    
+
+.panel-default>.panel-heading {
+  cursor: pointer;
+  background-color: #424242;
+    color: #fff;
+}
+
+.panel-heading, .panel-group .panel {
+  border-radius: 0px;
+}
+
+.bignumber {
+  display: inline-block;
+  color: #3498db;
+  font-weight: 200;
+  font-size: 5em;
+  margin-top: -20px;
+}
+
+#details {
+  color: #424242;
+  font-size: 1.8em;
+  font-weight: 200;
+  display: inline-block;
+  
+}
 
 @media (min-width: 1200px) {
 	.container {

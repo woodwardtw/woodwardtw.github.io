@@ -9,6 +9,7 @@
 		<link href="vendor/twbs/bootstrap/dist/css/me.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway:600,900' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
    <body>
    <nav class="navbar navbar-default navbar-fixed-top"">
@@ -35,9 +36,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-		<!-- Wrapper -->
-		div class="container-fluid searchrow">
-    	
+		<!-- Wrapper -->    	
 
 			<div id="wrapper container-fluid" ng-app="myApp" ng-controller="SuperCtrl"> 
 					<div class="row searchrow">					
@@ -46,7 +45,7 @@
 					    </div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1 col-sm-12 well well-lg"">
+						<div class="col-md-5 col-md-offset-1 col-sm-12 well well-lg"">
 					    	<p style="font-size:1.2em">
 					    	This set of photos links to individual blog posts where I've chosen a few photos to represent that week's efforts. It 
 					    	reflects a choice to put more than select 'perfect' photos out there for the public and it puts me in the habit of reflecting regularly.
@@ -54,7 +53,34 @@
 								<!--<form class="form-inline">
 									<input ng-model='search.title.rendered' type="text" placeholder="Filter by" autofocus>
 					  			</form>-->				
-				  		</div>		
+				  		</div>	
+				  		<div class="col-md-5 well well-lg" >
+				  		<div id="flickrcount"> 
+				  		<div id="details">PHOTOS WORTH OF PRACTICE</div>
+				  		</div>
+				  		 <script type="text/javascript">                
+					        $(document).ready(function(){ 
+					          console.log("ready"); //just to check in the firebug console.
+					          
+					        $.ajax({
+					          url:'https://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=1eb11bee0208b29c563a9227c51bbd01&user_id=29096601%40N00&format=json&jsoncallback=?',
+					          dataType:'jsonp',
+					          success: function(data) {
+					            console.log(data); //dumps the data to the console to check if the callback is made successfully.
+					            $.each(data, function(index, item){
+					                $('#flickrcount').prepend( '<div class="bignumber">' + numberWithCommas(item.photos.count._content) + '</div>');
+					              if (index == 10) return false; 
+					              }); //each
+					            } //success
+					          }); //ajax
+					          
+					        });//ready
+
+						function numberWithCommas(x) {
+							    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							}
+					  </script>
+				  		</div>	
 					</div>
 
 				<!-- Main -->
@@ -88,8 +114,6 @@
 			</script>
  <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/salvattore.min.js"></script>   
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
- <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
 	</body>
