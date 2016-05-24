@@ -364,7 +364,7 @@ a:hover {
   font-size: 1.8em;
   font-weight: 200;
   display: inline-block;
-  
+  padding-left: 10px;
 }
 
 @media (min-width: 1200px) {

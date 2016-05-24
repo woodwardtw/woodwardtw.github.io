@@ -56,7 +56,9 @@
 				  		</div>	
 				  		<div class="col-md-5 well well-lg" >
 				  		<div id="flickrcount"> 
-				  		<div id="details"> (PUBLISHED) PHOTOS WORTH OF PRACTICE</div>
+				  		<div id="details">photos worth of practice
+				  		<br/>since 
+				  		</div>
 				  		</div>
 				  		 <script type="text/javascript">                
 					        $(document).ready(function(){ 
@@ -69,6 +71,11 @@
 					            console.log(data); //dumps the data to the console to check if the callback is made successfully.
 					            $.each(data, function(index, item){
 					                $('#flickrcount').prepend( '<div class="bignumber">' + numberWithCommas(item.photos.count._content) + '</div>');
+					         		$('#details').append( timeConverter(item.photos.firstdate._content));
+
+
+					                
+
 					              if (index == 10) return false; 
 					              }); //each
 					            } //success
@@ -78,6 +85,19 @@
 
 						function numberWithCommas(x) {
 							    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							}
+
+							function timeConverter(UNIX_timestamp){
+							  var a = new Date(UNIX_timestamp * 1000);
+							  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+							  var year = a.getFullYear();
+							  var month = months[a.getMonth()];
+							  var date = a.getDate();
+							  var hour = a.getHours();
+							  var min = a.getMinutes();
+							  var sec = a.getSeconds();
+							  var time = date + ' ' + month + ' ' + year;
+							  return time;
 							}
 					  </script>
 				  		</div>	
