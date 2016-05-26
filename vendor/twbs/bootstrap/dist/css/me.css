@@ -80,12 +80,20 @@ a:hover {
   margin-right: 15%;
 }
 
+.pinimg {
+  display: inline-block;
+}
+
 .pinboard img {
   margin-right: 8px;
   border-radius: 3px;
 }
 
-
+.pindetails {
+  width: 80%;
+  float: right;
+  display: inline-block;
+}
 
 .navbar-default .navbar-nav>li>a:hover	 {
 	background-color: #333;
