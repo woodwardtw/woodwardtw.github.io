@@ -69,15 +69,11 @@
 					          dataType:'jsonp',
 					          success: function(data) {
 					            console.log(data); //dumps the data to the console to check if the callback is made successfully.
-					            $.each(data, function(index, item){
-					                $('#flickrcount').prepend( '<div class="bignumber">' + numberWithCommas(item.photos.count._content) + '</div>');
-					         		$('#details').append( timeConverter(item.photos.firstdate._content));
+					            var imgCount = data.person.photos.count._content;
+					           					           
+					                $('#flickrcount').prepend( '<div class="bignumber">' + numberWithCommas(imgCount) + '</div>');
+					         		$('#details').append( timeConverter(data.person.photos.firstdate._content));					                
 
-
-					                
-
-					              if (index == 10) return false; 
-					              }); //each
 					            } //success
 					          }); //ajax
 					          

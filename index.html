@@ -95,11 +95,11 @@
     <script type="text/javascript">                
         $(document).ready(function(){ 
           console.log("ready"); //just to check in the firebug console.
-          
+         
         $.ajax({
           url:'https://tomwoodward.us/json/blogs.json',
           jsonp:"cb",
-          dataType:'json',
+          dataType:'jsonp',
           success: function(data) {
             console.log(data); //dumps the data to the console to check if the callback is made successfully.
             $.each(data, function(index, item){
