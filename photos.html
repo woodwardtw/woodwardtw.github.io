@@ -121,8 +121,9 @@
 			var app = angular.module('myApp', ['ngSanitize']);
 			//
 			app.controller('SuperCtrl', function($scope, $http) {
-			    $http.get("./json/weeklyPhotos.json")
+			    $http.get("https://bionicteaching.com/wp-json/wp/v2/posts/?filter[category_name]=photography&per_page=30")
 			    .success(function(response) {$scope.entries = response;});
+			    console.log($scope.entries );
 			});
 			
 			//
