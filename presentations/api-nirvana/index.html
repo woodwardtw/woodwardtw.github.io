@@ -1,0 +1,339 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>The Personal API Path: Steps Towards Nirvana</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="https://kinlane.github.io/open-ed/css/main.css">
+    <link rel="stylesheet" href="https://kinlane.github.io/open-ed/css/default.css" id="theme">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <style type="text/css">
+
+    .stretch iframe {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .wordcloud {
+            border: 0px solid #000;
+            height: 3in;
+            margin: 0.1in auto;
+            padding: 0;
+            page-break-after: always;
+            page-break-inside: avoid;
+            width: 6in;
+        }
+
+        h2.nirvana {
+            font-size: 3em;
+            font-family: 'Abril Fatface', cursive;
+            color: yellow;
+        }
+
+        h3.nirvana, h3.nirvana a {
+            font-size: 1em;
+            font-family: 'Abril Fatface', cursive;
+            color: yellow;
+            text-decoration: none;
+        }
+
+        h4.lyrics {
+           font-family: 'Abril Fatface', cursive;
+           text-align: left;
+           font-size: 1.5em;
+        }
+
+        .spotty  p, .source p{
+            display: block;
+            float:left;
+            padding: 12px;
+            margin: 10px;
+            border: 1px solid #efefef;
+            text-align: left;
+            width: 50%;
+            font-size: .8em;
+        }
+        .spotty .align-left {
+            float: left;
+            margin-right: 12px;
+        }
+
+        .spotty a, .source a {
+            color: #424242;
+            text-decoration: none;
+        }
+
+        .spotty p:hover {
+            background-color: #efefef;
+        }
+        ol.nirvana  {
+            color: #fff;
+            font-size: 2em;
+            text-align: left;
+            margin-left: 25%;
+        }
+
+        #smaller {
+            font-size: 1em;
+        }
+
+        #blogposts, #blogposts a {
+            text-decoration: none;
+            text-align:left;
+            font-size: .7em;
+            color: #424242;
+        }
+        .pinboard {
+            height: 60px;
+            border-bottom: 2px solid #efefef;
+            margin-bottom: 12px;
+            margin-top: 8px
+        }
+
+        .pinboard:hover {
+            background-color: #efefef;
+        }
+
+        .pinimg img {
+            float: left;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        #perfect {
+            display: inline-block;
+        }
+
+    </style>
+    <script>
+    
+
+         function spotIt(spotId,divId){               
+                            $(document).ready(function(){ 
+                              console.log("ready"); //just to check in the firebug console.
+                              
+                            $.ajax({
+                              url:'https://api.spotify.com/v1/tracks/'+spotId,
+                              jsonp:"cb",
+                              dataType:'json',
+                              success: function(data) {
+                                console.log(data); //dumps the data to the console to check if the callback is made successfully.
+                                    $('#'+divId).append('<p><a href="'+ data.preview_url +'"><img src="'+ data.album.images[2].url + '" class="align-left">' + data.artists[0].name  +' </br><i>' + data.name +'</i></p></a>');
+                                
+                                } //success
+                              }); //ajax
+                              
+                            });//ready
+                          }
+    </script>
+
+</head>
+
+        <body>
+
+            <div class="reveal">
+
+                <!-- Used to fade in a background when a specific slide state is reached -->
+                <div class="state-background"></div>
+
+                <!-- Any section element inside of this container is displayed as a slide -->
+                <div class="slides">
+
+                    <section data-background-color="#000">
+                      <h2 class="nirvana">{"API": "NIRVANA"}</h2>
+                    </section>
+
+                    <section>
+                        <h4 class="lyrics">
+                        Show me how you question, question<br/>
+                        Lead the way to my temptations
+                        </h4>   
+                        <div id="mustache" class="spotty">
+                            <script>spotIt('7qje4KXxXzDZsyo9TsSEwa','mustache');</script>
+
+                        </div> 
+                    </section>
+                    <section data-background-color="#000">
+                        <h2 class="nirvana">TEMPTATIONS</h2>
+                        <ol class="nirvana">
+                        <li>Own</li>
+                        <li>Control/Perfect</li>
+                        <li>Flow/Connect</li>
+                        </ol>
+                    </section>
+
+                    <section data-background-color="#fff">
+                      <h4 class="lyrics">
+                        We can plant a house<br>
+                        We can build a tree<br>
+                        I don't even care<br>
+                        We could have all three
+                      </h2>
+                        <div id="breed" class="spotty">
+                            <script>spotIt('0TYJQVuc59U3jWDXEELhOI','breed');</script>
+
+                      </div>
+                    </section>
+
+                    <section>
+                        <h4>Twitter & Google Docs & YouTube</h4>
+
+                            <a class="twitter-timeline"  href="https://twitter.com/search?q=%23endofdays%20AND%20from%3A%40twoodwar%20" data-widget-id="793139626718486529">Tweets about #endofdays AND from:@twoodwar </a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                                <div class="source">
+                                <p>
+                                    <a href="https://docs.google.com/spreadsheets/d/1PfVEh83inWmT4MudDU-rZhFiumj83fJeuHO6x5l66sg/pubhtml?gid=409672398&single=true">Spreadsheet</a></br>
+                                    <a href="http://bionicteaching.com/youtube-view-count-to-tweet/">Blog Post</a><br/>
+                                    <a href="https://twitter.com/search?f=tweets&vertical=default&q=%23endofdays%20%40twoodwar&src=typd">Search vs Twitter Widget</a>
+                                </p>
+                            </div>
+
+                    </section>
+                    <section>
+                        <img src="https://c7.staticflickr.com/6/5824/30393626990_2cfcaf3b91_b.jpg">
+                    </section>
+                    <section>
+                        <div class="stretch">
+                            <iframe src="https://rampages.us/extras/world-lang/?docId=1RIsOAiVsUmnKhufpvxc6CLd4wraCVFSVDr5HPnItDME" width="100%"></iframe>
+                        </div>    
+                    </section>
+
+                    <section>
+                        <h4 class="lyrics" id="smaller">
+                       You see a lot up there but don't be scared<br/>
+                        Who needs action when you got words
+                        </h4>  
+                         <div id="plateau" class="spotty">
+                            <script>spotIt('5zYoaHjRlIEAK2jJJzHkmO','plateau');</script>
+                      </div> 
+                    </section>
+                    
+                    <section data-background-color="#000">
+                    <h2 class="nirvana">
+                    =IMPORTXML<br>
+                    =IMPORTDATA<br>
+                    =IMPORTFEED<br>
+                    =IMPORTHTML<br>
+                    </h2>
+                    </section>
+                    <section>
+                        <h4 class="lyrics">
+                            I don't have to think<br/>
+                            I only have to do it<br/>
+                            The results are always <div id="perfect">prefect</div>
+                        </h4>
+                         <div id="ohme" class="spotty">
+                            <script>spotIt('4L0CZr4WM32ymqvAsUoeeS','ohme');</script>
+                     
+                    </section>
+                    <section>
+                       <iframe src="https://drive.google.com/file/d/0B_9l84KvUJBWVElZNDV3R1lJcHM/preview" width="640" height="480"></iframe>
+                    </section>
+                    <section>
+                    <div id="blogposts"></div>
+                        <script type="text/javascript">                
+                            $(document).ready(function(){ 
+                              console.log("ready"); //just to check in the firebug console.
+                              
+                            $.ajax({
+                              url:'https://bionicteaching.com/wp-json/wp/v2/posts/?filter[tag]=opened16&per_page=10',
+                              jsonp:"cb",
+                              dataType:'json',
+                              success: function(data) {
+                                console.log(data); //dumps the data to the console to check if the callback is made successfully.
+                                $.each(data, function(index, item){
+                                    if (item.better_featured_image != null){ var photo ='<div class="pinimg"><img src="'+ item.better_featured_image.media_details.sizes.thumbnail.source_url +'" width="40px" height="40px"></div>' } else {var photo ='<div class="pinimg"><img src="https://tomwoodward.us/imgs/default.png" width="40px" height="40px"></div>';};              
+                                    $('#blogposts').append('<a href="' + item.link + '"><div class="pinboard">' + photo + '<div class="pindetails"> ' +item.title.rendered + ' <br/> published on ' + item.date.substring(0,10) +' </div> </div></a>');              
+                                  if (index == 10) return false; //only display 10 items
+                                  }); //each
+                                } //success
+                              }); //ajax
+                              
+                            });//ready
+                      </script>
+          
+
+
+
+                    </section>
+                    <section data-background-color="#000">
+                    <h2 class="nirvana">Tom Woodward</h2>
+                    <h3 class="nirvana"><a href="https://twitter.com/twoodwar">@twoodwar</a></h3>
+                    <h3 class="nirvana"><a href="https://bionicteaching.com">https://bionicteaching.com</a></h3>    
+                    </section>
+
+                </div>
+
+                <!-- The navigational controls UI -->
+                <aside class="controls">
+                    <a class="left" href="#">&#x25C4;</a>
+                    <a class="right" href="#">&#x25BA;</a>
+                    <a class="up" href="#">&#x25B2;</a>
+                    <a class="down" href="#">&#x25BC;</a>
+                </aside>
+
+                <!-- Presentation progress bar -->
+                <div class="progress"><span></span></div>
+
+            </div>
+
+            <script src="https://woodwardtw.github.io/reveal.js/lib/js/head.min.js"></script>
+            <script src="https://woodwardtw.github.io/reveal.js/js/reveal.js"></script>
+            <script>
+
+                // Full list of configuration options available here:
+                // https://github.com/hakimel/reveal.js#configuration
+                Reveal.initialize({
+                    controls: true,
+                    progress: true,
+                    history: true,
+
+                    theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+                    transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/linear(2d)
+
+                    // Optional libraries used to extend on reveal.js
+                    dependencies: []
+                });
+
+                function makePerfect (){                    
+                    document.getElementById('perfect').innerHTML = 'PERFECT';
+                }
+
+                function makeImperfect () {
+                    document.getElementById('perfect').innerHTML = 'PREFECT';
+                }
+
+                function timeout() {
+                setTimeout(function () {
+                       setTimeout(makePerfect, 1000);
+                       setTimeout(makeImperfect, randomIntFromInterval(2200, 9000));
+                    // Then recall the parent function to
+                    // create a recursive loop.
+                    timeout();
+                }, randomIntFromInterval(2200, 8000));
+            }
+
+                timeout();
+
+                function randomIntFromInterval(min,max)
+                {
+                    return Math.floor(Math.random()*(max-min+1)+min);
+                }
+
+            </script>
+
+    </body>
+</html>
