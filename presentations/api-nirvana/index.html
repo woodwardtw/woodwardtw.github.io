@@ -154,6 +154,9 @@
 
                     <section data-background-color="#000">
                       <h2 class="nirvana">{"API": "NIRVANA"}</h2>
+                      <aside class="notes">
+                        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+                    </aside>
                     </section>
 
                     <section>
@@ -297,8 +300,9 @@
                 // Full list of configuration options available here:
                 // https://github.com/hakimel/reveal.js#configuration
                 Reveal.initialize({
-                    controls: true,
+                    controls: false,
                     progress: true,
+                    showNotes: true,
                     history: true,
 
                     theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
