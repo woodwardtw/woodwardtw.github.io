@@ -6,16 +6,17 @@
 
     <meta charset="utf-8">
 
-    <title>The Personal API Path: Steps Towards Nirvana</title>
-
+    <title>You Can't Do That on WordPress</title>
+    
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="https://kinlane.github.io/open-ed/css/main.css">
-    <link rel="stylesheet" href="https://kinlane.github.io/open-ed/css/default.css" id="theme">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/default.css" id="theme">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
 
     <style type="text/css">
 
@@ -27,62 +28,36 @@
             height: 100%;
         }
 
-        .wordcloud {
-            border: 0px solid #000;
-            height: 3in;
-            margin: 0.1in auto;
-            padding: 0;
-            page-break-after: always;
-            page-break-inside: avoid;
-            width: 6in;
+          h2.big {
+            font-size: 3em;
         }
 
-        h2.big {
-            font-size: 3em;
+        .black {
+            color: #000;
             text-shadow: .02em .02em #fff;
         }
 
-        h3.nirvana, h3.nirvana a {
-            font-size: 1em;
-            font-family: 'Abril Fatface', cursive;
-            color: yellow;
-            text-decoration: none;
-        }
-
-        h4.lyrics {
-           font-family: 'Abril Fatface', cursive;
-           text-align: left;
-           font-size: 1.5em;
-        }
-
-        .spotty  p, .source p{
-            display: block;
-            float:left;
-            padding: 12px;
-            margin: 10px;
-            border: 1px solid #efefef;
-            text-align: left;
-            width: 50%;
-            font-size: .8em;
-        }
-        .spotty .align-left {
-            float: left;
-            margin-right: 12px;
-        }
-
-        .spotty a, .source a {
-            color: #424242;
-            text-decoration: none;
-        }
-
-        .spotty p:hover {
-            background-color: #efefef;
-        }
-        ol.nirvana  {
+        .black {
             color: #fff;
-            font-size: 2em;
-            text-align: left;
-            margin-left: 25%;
+            text-shadow: .02em .02em #000;
+        }
+
+        h2.big.right {
+            text-align: right;
+        }
+
+        h2.big a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        h3.right, h3.right a {
+            font-size: 1.5em;
+            font-family: sans-serif;
+            text-decoration: none;
+            text-align: right;
+            color: #666666;
+            text-transform: none;
         }
 
         #smaller {
@@ -106,27 +81,33 @@
            
         }
 
+         .list ul {
+        color: #424242;
+    }
+
+    .list li, .list li a {
+        text-decoration: none;
+        color: #424242;
+        list-style: none;
+        margin: 0 auto;
+        text-align: right;
+        margin: 10px;
+        font-family: sans-serif;
+        transition: .2s;
+    }
+
+    .list li a:hover {
+        padding-right: 15px;
+    }
+
+ .controls {
+            display: none !important;
+        }
+
     </style>
     <script>
     
-
-         function spotIt(spotId,divId){               
-                            $(document).ready(function(){ 
-                              console.log("ready"); //just to check in the firebug console.
-                              
-                            $.ajax({
-                              url:'https://api.spotify.com/v1/tracks/'+spotId,
-                              jsonp:"cb",
-                              dataType:'json',
-                              success: function(data) {
-                                console.log(data); //dumps the data to the console to check if the callback is made successfully.
-                                    $('#'+divId).append('<p><a href="'+ data.preview_url +'"><img src="'+ data.album.images[2].url + '" class="align-left">' + data.artists[0].name  +' </br><i>' + data.name +'</i></p></a>');
-                                
-                                } //success
-                              }); //ajax
-                              
-                            });//ready
-                          }
+    
     </script>
 
 </head>
@@ -142,19 +123,99 @@
                 <div class="slides">
 
                     <section data-background-image="https://c1.staticflickr.com/1/767/32432955421_69364867b9_b.jpg">
-                     <h2 class="big">@NMC</h2>
                     </section>
                    
-                    <section data-background-color="#000">
-                    <h2 class="big">Tom Woodward</h2>
-                    <h3 class="big"><a href="https://twitter.com/twoodwar">@twoodwar</a></h3>
-                    <h3 class="big"><a href="https://bionicteaching.com">https://bionicteaching.com</a></h3>    
+                    <section>
+                        <h2 class="big right black">Tom Woodward</h2>
+                        <h3 class="right"><a href="https://twitter.com/twoodwar">@twoodwar</a></h3>
+                        <h3 class="right"><a href="https://bionicteaching.com">bionicteaching.com</a></h3>    
                     </section>
+
+                    <section>
+                        <h2 class="big right black">Free Your Mind</h2>   
+                        <h3 class="right">A way to put stuff online</h3>
+                        <h3 class="right">A way to display stuff online</h3>
+                    </section>
+
+                    <section>
+                        <h2 class="big right black">Writing Right</h2> 
+                        <h3 class="right">right is relative</h3>  
+                    </section>
+
+                    <section data-background-image="imgs/editor.png">                        
+                    </section>
+
+                    <section data-background-image="imgs/press-this.png">                        
+                    </section>
+                    
+                    <section data-background-image="imgs/minimal-editor.png">                        
+                    </section>
+
+                    <section data-background-image="imgs/minimal-front.png">                        
+                    </section>
+
+                    <section>
+                        <h2 class="big right black">Going beyond</h2> 
+                        <h3 class="right">Front End Writing</h3>
+                        <h3 class="right">Logins optional, entries structured</h3>
+                    </section>
+
+                    <section data-background-image="imgs/gravity-backend.png">    
+                        <h2 class="big black">Gravity<br> Forms</h2>  
+                    </section>                    
+
+                    <!--<section data-background-image="imgs/text-set-front.png">                        
+                    </section>
+
+                    <section data-background-image="imgs/text-set-back.png">                        
+                    </section> -->
+
+                    <section>
+                        <h2 class="big right black">Sky is the limit</h2>    
+                        <ul class="list">
+                            <li><a href="https://rampages.us/eastendcemeterytest/">Grave Markers</a></li>
+                            <li><a href="http://artfulness.vcu.edu/session-two/activity-drawing/">Artfulness Rocks</a></li>
+                            <li><a href="https://rampages.us/textset/">Text Sets</a></li>
+                            <li><a href="https://rampages.us/bicycleurbanism2015/map/">Bicycle Safety Survey</a></li>
+                            <li><a href="http://artfulness.rampages.us/poems/biscuit/">Blackout Poetry</a></li>                            
+                            <li><a href="http://online.vcu.edu/experience/id.html">Field Botany</a></li>
+                        </ul>            
+                    </section>
+                    
+                    <section> 
+                        <h2 class="big right black">SPLOTs</h2>
+                        <h3 class="right"><a href="http://splot.ca/">Simplest Possible Tools</a></h3>
+                        <h3 class="right">Brian Lamb & Alan Levine</h3>                       
+                    </section>
+
+                    <section>
+                        <h2 class="big right black">It's in the details</h2>
+                        <ul class="list">
+                            <li><a href="https://rampages.us/digital-history/">Digital History</a></li>
+                            <li><a href="https://rampages.us/sociologicaltheory/">Sociological Theory</a></li>
+                            <li><a href="https://rampages.us/german2atvcu/">German II</a></li>
+                            <li><a href="https://rampages.us/histology/tissues/nervous/overview/nervous-tissue-overview-1/">Histology</a></li>
+                            <li><a href="https://rampages.us/sociallyengagedmedia">Socially Engaged Media</a></li>                            
+                            <li><a href="http://anth101.com/clans/301-class-of-2017/">ANTH101</a></li>
+                        </ul>         
+                    </section>                    
+
+                    <section>
+                         <h2 class="big right black">Free Your Mind</h2>
+                        <ul class="list">                                              
+                            <li><a href="http://judahwill.rampages.us">Judah Will</a></li>
+                            <li><a href="https://rampages.us/extras/blogtime/">Timeline JS</a></li>
+                            <li><a href="https://rampages.us/extras/selfiestick">Data View</a></li>
+                            <li><a href="https://codepen.io/twwoodward/full/JJGaKX/">Abstract Shapes</a></li>                            
+                        </ul>   
+                    </section>
+
+                    <!--course details -> data provisioner = selfie stick and blog timeline, histology, judah will, digital history, eco techniques -->
 
                 </div>
 
                 <!-- The navigational controls UI -->
-                <aside class="controls">
+                <aside class="controls" style="display: none !important;">
                     <a class="left" href="#">&#x25C4;</a>
                     <a class="right" href="#">&#x25BA;</a>
                     <a class="up" href="#">&#x25B2;</a>
@@ -184,30 +245,7 @@
                     dependencies: []
                 });
 
-                function makePerfect (){                    
-                    document.getElementById('perfect').innerHTML = 'PERFECT';
-                }
-
-                function makeImperfect () {
-                    document.getElementById('perfect').innerHTML = 'PREFECT';
-                }
-
-                function timeout() {
-                setTimeout(function () {
-                       setTimeout(makePerfect, 1000);
-                       setTimeout(makeImperfect, randomIntFromInterval(2200, 9000));
-                    // Then recall the parent function to
-                    // create a recursive loop.
-                    timeout();
-                }, randomIntFromInterval(2200, 8000));
-            }
-
-                timeout();
-
-                function randomIntFromInterval(min,max)
-                {
-                    return Math.floor(Math.random()*(max-min+1)+min);
-                }
+               
 
             </script>
 
