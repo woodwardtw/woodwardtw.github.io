@@ -152,6 +152,42 @@
     text-align: left;  
    }
 
+   .half-holder {
+    display: flex;
+   }
+
+   .half {
+    width: 50%;
+   }
+
+   .bio-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+   }
+
+   .jorg {
+    background-image: url('imgs/jorg.jpg');
+    background-size: cover;
+   }
+
+   .tom {
+    background-image: url('http://tomwoodward.us/imgs/me_small.png');
+    background-size: cover;
+   }
+
+   .big a {
+    text-decoration: none;
+   }
+
+   .half {
+    text-align: left;
+   }
+
+   .half h2 {
+    margin-top: 10px;
+   }
+
     </style>
   
 
@@ -166,6 +202,28 @@
 
                 <!-- Any section element inside of this container is displayed as a slide -->
                 <div class="slides">
+                    <section>
+                        <h2 class="big">splot.tools</h2>    
+                    </section>
+                    <section>
+                        <div class="half-holder">
+                            <div class="half left">
+                                <div class="bio-img jorg"></div>
+                                <h2>Jörg Pareigis</h2>
+                                <div class="big"><a href="https://twitter.com/joergelp">@joergelp</a><br>
+                                Karlstad University, Sweden
+                                </div>
+                            </div>
+                            <div class="half right">
+                                <div class="bio-img tom"></div>
+                                <h2>Tom Woodward</h2>
+                                <div class="big"><a href="https://twitter.com/twoodwar">@twoodwar</a><br>
+                                Virginia Commonwealth University, USA
+                                </div>                                
+                            </div>    
+                        </div>
+                    </section>
+
                     <section>
                             <div class="tweet" data-src="https://twitter.com/brlamb/status/527223001482133504"></div>
                     </section>
